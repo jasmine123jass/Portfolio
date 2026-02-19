@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Me - Srujitha Jasmine Baggam{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-12">
+    <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#003366] mb-4">Get In Touch</h1>
+            <p class="text-xl text-gray-600">Have a question or want to work together? I'd love to hear from you!</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Contact Info Cards -->
+            <div class="card text-center hover:scale-105 transition-transform">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-phone-alt text-2xl text-[#003366]"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2">Phone</h3>
+                <p class="text-gray-600">+91 7331180690</p>
+                <p class="text-sm text-gray-500 mt-2">Available on WhatsApp</p>
+            </div>
+
+            <div class="card text-center hover:scale-105 transition-transform">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-envelope text-2xl text-[#003366]"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2">Email</h3>
+                <p class="text-gray-600">srujithajasmineb@gmail.com</p>
+                <p class="text-sm text-gray-500 mt-2">Reply within 24 hours</p>
+            </div>
+
+            <div class="card text-center hover:scale-105 transition-transform">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-map-marker-alt text-2xl text-[#003366]"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2">Location</h3>
+                <p class="text-gray-600">Visakhapatnam</p>
+                <p class="text-sm text-gray-500 mt-2">Andhra Pradesh, India</p>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="card mt-12">
+            <h2 class="text-2xl font-bold text-[#003366] mb-6">Send Me a Message</h2>
+            
+            <form method="post" action="{% url 'contact:contact' %}" id="contactForm" class="space-y-6">
+                {% csrf_token %}
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-[#003366] font-medium mb-2">
+                            <i class="fas fa-user mr-2"></i>Your Name *
+                        </label>
+                        <input type="text" name="name" id="name" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
+                               placeholder="John Doe">
+                        <p class="text-sm text-gray-500 mt-1">Minimum 2 characters</p>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-[#003366] font-medium mb-2">
+                            <i class="fas fa-envelope mr-2"></i>Email Address *
+                        </label>
+                        <input type="email" name="email" id="email" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
+                               placeholder="john@example.com">
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-[#003366] font-medium mb-2">
+                        <i class="fas fa-comment mr-2"></i>Your Message *
+                    </label>
+                    <textarea name="message" id="message" rows="6" required 
+                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#003366] focus:ring-1 focus:ring-[#003366]"
+                              placeholder="Tell me about your project, job opportunity, or just say hi..."></textarea>
+                    <p class="text-sm text-gray-500 mt-1">Minimum 10 characters</p>
+                </div>
+
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <p class="text-sm text-blue-800">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        By submitting this form, you'll receive a confirmation email and I'll get back to you within 24 hours.
+                    </p>
+                </div>
+                
+                <button type="submit" id="submitBtn" class="w-full btn-primary py-4 text-lg font-semibold">
+                    <i class="fas fa-paper-plane mr-2"></i>
+                    Send Message
+                </button>
+            </form>
+
+            <!-- Social Links -->
+            <div class="mt-8 pt-8 border-t border-gray-200">
+                <h3 class="text-center font-semibold text-[#003366] mb-4">Connect with me on social media</h3>
+                <div class="flex justify-center space-x-6">
+                    <a href="https://github.com/jasmine123jass" target="_blank" 
+                       class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-white hover:bg-[#003366] transition-colors">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/srujitha-jasmine-baggam" target="_blank"
+                       class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white hover:bg-[#003366] transition-colors">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                    <a href="mailto:srujithajasmineb@gmail.com" 
+                       class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-white hover:bg-[#003366] transition-colors">
+                        <i class="fas fa-envelope text-xl"></i>
+                    </a>
+                    <a href="#" target="_blank"
+                       class="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center text-white hover:bg-[#003366] transition-colors">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const submitBtn = document.getElementById('submitBtn');
+    
+    // Validation
+    let isValid = true;
+    let errorMessage = '';
+    
+    if (name.length < 2) {
+        isValid = false;
+        errorMessage = 'Please enter a valid name (minimum 2 characters)';
+    } else if (!email.includes('@') || !email.includes('.')) {
+        isValid = false;
+        errorMessage = 'Please enter a valid email address';
+    } else if (message.length < 10) {
+        isValid = false;
+        errorMessage = 'Message must be at least 10 characters long';
+    }
+    
+    if (!isValid) {
+        e.preventDefault();
+        alert(errorMessage);
+        return;
+    }
+    
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+});
+</script>
+
+<style>
+.btn-primary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+</style>
+{% endblock %}
