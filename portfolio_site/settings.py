@@ -20,13 +20,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    # Third Party
     'rest_framework',
     'rest_framework.authtoken',
     #'corsheaders',
-    
-    # Local
     'accounts_app',
     'projects_app',
     'contact_app',
@@ -93,15 +89,15 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Email Configuration
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+EMAIL_PORT = 587
 EMAIL_HOST_USER = 'srujithajasmineb@gmail.com'
-EMAIL_HOST_PASSWORD = 'vxzn crfo bkvr gvof'  # Your app password
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-ADMIN_EMAIL = 'srujithajasmineb@gmail.com'
-
+EMAIL_HOST_PASSWORD = 'ayfg hhtx wnge kndv'
+CONTACT_RECIPIENT = 'srujithajasmineb@gmail.com'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
@@ -111,8 +107,20 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
 }
-
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Add these at the bottom
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
+
+# Admin login URL
+ADMIN_LOGIN_URL = 'accounts:admin_login'
+
+# Your authorized users (only you)
+AUTHORIZED_USERS = ['srujitha', 'admin']  # Add your usernames
+AUTHORIZED_EMAILS = ['srujithajasmineb@gmail.com']  # Add your email
