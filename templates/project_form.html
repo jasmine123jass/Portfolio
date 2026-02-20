@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% if project %}Edit{% else %}Create{% endif %} Project{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-12">
+    <div class="max-w-2xl mx-auto">
+        <div class="card">
+            <h1 class="text-3xl font-bold text-[#003366] mb-6">
+                {% if project %}Edit{% else %}Create New{% endif %} Project
+            </h1>
+            
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="mb-4">
+                    <label class="block text-[#003366] font-medium mb-2">Title *</label>
+                    <input type="text" name="title" value="{{ project.title|default:'' }}" required
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-[#003366]">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-[#003366] font-medium mb-2">Description *</label>
+                    <textarea name="description" rows="5" required
+                              class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-[#003366]">{{ project.description|default:'' }}</textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-[#003366] font-medium mb-2">Tech Stack (comma separated) *</label>
+                    <input type="text" name="tech_stack" value="{{ project.tech_stack|default:'' }}" required
+                           placeholder="e.g., Python, Django, React"
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-[#003366]">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-[#003366] font-medium mb-2">GitHub Link</label>
+                    <input type="url" name="github_link" value="{{ project.github_link|default:'' }}"
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-[#003366]">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-[#003366] font-medium mb-2">Live Demo Link</label>
+                    <input type="url" name="live_demo_link" value="{{ project.live_demo_link|default:'' }}"
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-[#003366]">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-[#003366] font-medium mb-2">Project Image</label>
+                    {% if project and project.image %}
+                        <div class="mb-2">
+                            <img src="{{ project.image.url }}" alt="{{ project.title }}" class="h-32 w-auto">
+                        </div>
+                    {% endif %}
+                    <input type="file" name="image" accept="image/*"
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-[#003366]">
+                </div>
+                
+                <div class="flex gap-4">
+                    <button type="submit" class="btn-primary">
+                        {% if project %}Update{% else %}Create{% endif %} Project
+                    </button>
+                    <a href="{% if project %}{% url 'projects:project_detail' slug=project.slug %}{% else %}{% url 'projects:project_list' %}{% endif %}" 
+                       class="btn-outline">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

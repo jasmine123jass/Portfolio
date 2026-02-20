@@ -3,8 +3,10 @@ from django.contrib import messages
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
 from .models import ContactMessage
 
+@login_required(login_url='accounts:login')
 def contact_view(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -18,46 +20,62 @@ def contact_view(request):
             message=message
         )
         
+        # Send email to admin
+        admin_subject = f"New Contact Form Message from {name}"
+        admin_message = f"""
+        New message from your portfolio website:
+        
+        Name: {name}
+        Email: {email}
+        Message: {message}
+        
+        This message was sent on {contact.timestamp.strftime('%Y-%m-%d %H:%M:%S')}
+        """
+        
         try:
-            # Send email to admin
-            admin_subject = f"New Contact from {name}"
-            admin_message = render_to_string('emails/admin_notification.html', {
-                'name': name,
-                'email': email,
-                'message': message
-            })
-            
-            admin_email = EmailMessage(
+            # Send to admin
+            send_mail(
                 admin_subject,
                 admin_message,
                 settings.EMAIL_HOST_USER,
-                [settings.ADMIN_EMAIL]
+                [settings.CONTACT_EMAIL],
+                fail_silently=False,
             )
-            admin_email.content_subtype = "html"
-            admin_email.send()
+            print(f"Email sent to admin: {settings.CONTACT_EMAIL}")  # Debug
             
             # Send confirmation to user
-            user_subject = "Thank you for contacting me!"
-            user_message = render_to_string('emails/user_confirmation.html', {
-                'name': name
-            })
+            user_subject = "Thank you for contacting Srujitha Jasmine!"
+            user_message = f"""
+            Dear {name},
             
-            user_email = EmailMessage(
+            Thank you for reaching out to me through my portfolio website. I have received your message and will get back to you as soon as possible.
+            
+            Your message: {message}
+            
+            Best regards,
+            Srujitha Jasmine Baggam
+            AI ML Engineer
+            """
+            
+            send_mail(
                 user_subject,
                 user_message,
                 settings.EMAIL_HOST_USER,
-                [email]
+                [email],
+                fail_silently=False,
             )
-            user_email.content_subtype = "html"
-            user_email.send()
+            print(f"Confirmation email sent to user: {email}")  # Debug
             
             messages.success(request, "Message sent successfully! Check your email for confirmation.")
+            
         except Exception as e:
-            messages.warning(request, "Message saved but email notification could not be sent.")
+            print(f"Email error: {str(e)}")  # Debug
+            messages.warning(request, "Message saved but email could not be sent. I'll still get back to you soon!")
         
         return redirect('contact:success')
     
     return render(request, 'contact.html')
 
+@login_required(login_url='accounts:login')
 def contact_success(request):
     return render(request, 'contact_success.html')

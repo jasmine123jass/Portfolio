@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Srujitha Jasmine Baggam - AI/ML Specialist and Full Stack Developer Portfolio">
-    <meta name="keywords" content="AI, ML, Python, Django, Full Stack, Portfolio">
+    <meta name="description" content="Srujitha Jasmine Baggam - AI-ML Engineer Portfolio">
+    <meta name="keywords" content="AI, ML, Python, Django, Portfolio">
     <meta name="author" content="Srujitha Jasmine Baggam">
     <title>{% block title %}Srujitha Jasmine Baggam - Portfolio{% endblock %}</title>
     
@@ -141,6 +141,11 @@
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
+
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
         
         .footer {
             background: var(--dark-blue);
@@ -167,9 +172,51 @@
             transform: translateY(-3px);
         }
         
+        /* Active nav link style */
+        .nav-link.active {
+            font-weight: 600;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        /* Scroll to top button */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--dark-blue);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 20px rgba(0,51,102,0.3);
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+        
+        .scroll-top-btn:hover {
+            background: #1e4a7a;
+            transform: translateY(-5px);
+        }
+        
         @media (max-width: 768px) {
             .card { padding: 1.5rem; }
             .navbar .flex { flex-direction: column; gap: 1rem; }
+            .scroll-top-btn {
+                width: 40px;
+                height: 40px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 1rem;
+            }
         }
     </style>
     {% block extra_css %}{% endblock %}
@@ -183,11 +230,9 @@
                     <i class="fas fa-robot mr-2"></i>SJB Portfolio
                 </a>
                 
-                <!-- Desktop Menu -->
+                <!-- Desktop Menu - Updated with only Home and Contact -->
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="/" class="nav-link font-medium">Home</a>
-                    <a href="{% url 'projects:project_list' %}" class="nav-link font-medium">Projects</a>
-                    <a href="/#certificates" class="nav-link font-medium">Certificates</a>
                     <a href="{% url 'contact:contact' %}" class="nav-link font-medium">Contact</a>
                     
                     {% if user.is_authenticated %}
@@ -195,7 +240,7 @@
                             <i class="fas fa-tachometer-alt mr-1"></i>Dashboard
                         </a>
                         {% if user.is_staff %}
-                            <a href="{% url 'admin:index' %}" class="nav-link font-medium">
+                            <a href="{% url 'admin:index' %}" class="nav-link font-medium" style="color: #ff6b6b;">
                                 <i class="fas fa-cog mr-1"></i>Admin
                             </a>
                         {% endif %}
@@ -209,9 +254,6 @@
                         <a href="{% url 'accounts:login' %}" class="btn-outline text-sm py-2 px-4">
                             <i class="fas fa-sign-in-alt mr-1"></i>Login
                         </a>
-                        <a href="{% url 'accounts:signup' %}" class="btn-primary text-sm py-2 px-4">
-                            <i class="fas fa-user-plus mr-1"></i>Sign Up
-                        </a>
                     {% endif %}
                 </div>
 
@@ -221,17 +263,15 @@
                 </button>
             </div>
 
-            <!-- Mobile Menu -->
+            <!-- Mobile Menu - Updated with only Home and Contact -->
             <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4">
                 <div class="flex flex-col space-y-3">
-                    <a href="/" class="nav-link block">Home</a>
-                    <a href="{% url 'projects:project_list' %}" class="nav-link block">Projects</a>
-                    <a href="/#certificates" class="nav-link block">Certificates</a>
-                    <a href="{% url 'contact:contact' %}" class="nav-link block">Contact</a>
+                    <a href="/" class="nav-link block" onclick="closeMobileMenu()">Home</a>
+                    <a href="{% url 'contact:contact' %}" class="nav-link block" onclick="closeMobileMenu()">Contact</a>
                     {% if user.is_authenticated %}
-                        <a href="{% url 'accounts:dashboard' %}" class="nav-link block">Dashboard</a>
+                        <a href="{% url 'accounts:dashboard' %}" class="nav-link block" onclick="closeMobileMenu()">Dashboard</a>
                         {% if user.is_staff %}
-                            <a href="{% url 'admin:index' %}" class="nav-link block">Admin</a>
+                            <a href="{% url 'admin:index' %}" class="nav-link block" style="color: #ff6b6b;" onclick="closeMobileMenu()">Admin</a>
                         {% endif %}
                         <form method="post" action="{% url 'accounts:logout' %}">
                             {% csrf_token %}
@@ -239,7 +279,6 @@
                         </form>
                     {% else %}
                         <a href="{% url 'accounts:login' %}" class="btn-outline block text-center">Login</a>
-                        <a href="{% url 'accounts:signup' %}" class="btn-primary block text-center">Sign Up</a>
                     {% endif %}
                 </div>
             </div>
@@ -251,7 +290,7 @@
         {% for message in messages %}
             <div class="toast {% if message.tags %}{{ message.tags }}{% endif %}">
                 <div class="flex items-center">
-                    <i class="fas {% if message.tags == 'success' %}fa-check-circle text-green-500{% else %}fa-info-circle text-blue-500{% endif %} mr-3 text-xl"></i>
+                    <i class="fas {% if message.tags == 'success' %}fa-check-circle text-green-500{% elif message.tags == 'error' %}fa-exclamation-circle text-red-500{% else %}fa-info-circle text-blue-500{% endif %} mr-3 text-xl"></i>
                     <span>{{ message }}</span>
                     <button onclick="this.parentElement.parentElement.remove()" class="ml-4 text-gray-400 hover:text-gray-600">
                         <i class="fas fa-times"></i>
@@ -273,13 +312,15 @@
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
                     <h3 class="text-xl font-bold mb-4">Srujitha Jasmine</h3>
-                    <p class="text-gray-300">AI/ML Specialist & Full Stack Developer passionate about building intelligent systems.</p>
+                    <p class="text-gray-300">AI-ML Engineer passionate about building intelligent systems.</p>
                 </div>
                 <div>
                     <h4 class="font-semibold mb-4">Quick Links</h4>
                     <ul class="space-y-2">
                         <li><a href="/" class="text-gray-300 hover:text-white">Home</a></li>
-                        <li><a href="{% url 'projects:project_list' %}" class="text-gray-300 hover:text-white">Projects</a></li>
+                        <li><a href="/#projects" class="text-gray-300 hover:text-white">Projects</a></li>
+                        <li><a href="/#certificates" class="text-gray-300 hover:text-white">Certificates</a></li>
+                        <li><a href="/#extracurricular" class="text-gray-300 hover:text-white">Activities</a></li>
                         <li><a href="{% url 'contact:contact' %}" class="text-gray-300 hover:text-white">Contact</a></li>
                     </ul>
                 </div>
@@ -288,14 +329,16 @@
                     <ul class="space-y-2 text-gray-300">
                         <li><i class="fas fa-phone mr-2"></i>+91 7331180690</li>
                         <li><i class="fas fa-envelope mr-2"></i>srujithajasmineb@gmail.com</li>
-                        <li><i class="fas fa-map-marker mr-2"></i>Visakhapatnam, India</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i>Visakhapatnam, India</li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-semibold mb-4">Follow Me</h4>
                     <div class="flex space-x-3">
-                        <a href="https://github.com/jasmine123jass" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="https://linkedin.com/in/srujitha-jasmine-baggam" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/jasmine123jass" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/srujitha-jasmine-baggam" target="_blank" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://leetcode.com/u/Sruji_28/" target="_blank" class="social-link"><i class="fas fa-code"></i></a>
+                        <a href="https://www.hackerrank.com/profile/srujithajasmineb" target="_blank" class="social-link"><i class="fab fa-hackerrank"></i></a>
                         <a href="mailto:srujithajasmineb@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
                     </div>
                 </div>
@@ -306,11 +349,41 @@
         </div>
     </footer>
 
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script>
         // Mobile menu toggle
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
             menu.classList.toggle('hidden');
+            
+            // Animate hamburger icon
+            const icon = document.querySelector('.md\\:hidden i');
+            if (icon) {
+                if (icon.classList.contains('fa-bars')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        }
+
+        // Close mobile menu
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.add('hidden');
+            
+            // Reset hamburger icon
+            const icon = document.querySelector('.md\\:hidden i');
+            if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
         }
 
         // Auto-hide toasts after 5 seconds
@@ -323,15 +396,62 @@
             }, 5000);
         });
 
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        // Smooth scrolling for anchor links (only for home page)
+        document.querySelectorAll('a[href^="/#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
+                
+                const href = this.getAttribute('href');
+                const targetId = href.substring(2); // Remove '/#' from href
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    // Close mobile menu if open
+                    closeMobileMenu();
+                    
+                    // Smooth scroll to target
+                    targetElement.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Update URL without page reload
+                    history.pushState(null, null, href);
                 }
             });
+        });
+
+        // Handle direct links to home page with hash
+        if (window.location.pathname === '/' && window.location.hash) {
+            const targetId = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 100);
+            }
+        }
+
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollBtn = document.getElementById('scrollTopBtn');
+            if (window.scrollY > 500) {
+                scrollBtn.style.display = 'flex';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
         });
     </script>
 

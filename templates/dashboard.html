@@ -5,8 +5,47 @@
 
 {% block content %}
 <div class="container mx-auto px-4 py-12">
-    <h1 class="text-3xl md:text-4xl font-bold text-[#003366] mb-8">Welcome, {{ user.username }}!</h1>
+    <!-- Welcome Section with Stats -->
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl md:text-4xl font-bold text-[#003366]">Welcome, {{ user.username }}!</h1>
+        <div class="text-sm text-gray-600">
+            Last login: {{ user.last_login|date:"F d, Y H:i" }}
+        </div>
+    </div>
     
+    <!-- Stats Cards -->
+    <div class="grid md:grid-cols-4 gap-4 mb-8">
+        <div class="card text-center p-4">
+            <i class="fas fa-project-diagram text-3xl text-[#003366] mb-2"></i>
+            <h3 class="text-2xl font-bold">{{ total_projects|default:"0" }}</h3>
+            <p class="text-gray-600">Total Projects</p>
+        </div>
+        
+        <div class="card text-center p-4">
+            <i class="fas fa-certificate text-3xl text-[#003366] mb-2"></i>
+            <h3 class="text-2xl font-bold">{{ total_certificates|default:"0" }}</h3>
+            <p class="text-gray-600">Certificates</p>
+        </div>
+        
+        <div class="card text-center p-4">
+            <i class="fas fa-envelope text-3xl text-[#003366] mb-2"></i>
+            <h3 class="text-2xl font-bold">{{ total_messages|default:"0" }}</h3>
+            <p class="text-gray-600">Messages</p>
+            {% if unread_messages > 0 %}
+            <span class="text-xs bg-red-500 text-white px-2 py-1 rounded-full mt-1 inline-block">
+                {{ unread_messages }} unread
+            </span>
+            {% endif %}
+        </div>
+        
+        <div class="card text-center p-4">
+            <i class="fas fa-calendar-alt text-3xl text-[#003366] mb-2"></i>
+            <h3 class="text-2xl font-bold">2+</h3>
+            <p class="text-gray-600">Years Exp</p>
+        </div>
+    </div>
+    
+    <!-- Your Existing Grid -->
     <div class="grid md:grid-cols-3 gap-6 mb-8">
         <div class="card text-center">
             <i class="fas fa-user text-4xl text-[#003366] mb-4"></i>
@@ -20,7 +59,7 @@
             <i class="fas fa-project-diagram text-4xl text-[#003366] mb-4"></i>
             <h3 class="font-bold text-xl mb-2">Projects</h3>
             <p class="text-gray-600 mb-4">Create and manage projects</p>
-            <a href="{% url 'projects:project_create' %}" class="text-[#003366] hover:underline">Add New →</a>
+            <a href="{% url 'admin:projects_app_project_add' %}" class="text-[#003366] hover:underline">Add New →</a>
         </div>
         
         <div class="card text-center">
@@ -32,9 +71,189 @@
         {% endif %}
     </div>
     
+    <!-- Recent Activity Section with Tabs -->
     <div class="card">
         <h2 class="text-2xl font-bold text-[#003366] mb-6">Recent Activity</h2>
-        <p class="text-gray-600">No recent activity to display.</p>
+        
+        <!-- Tab Navigation -->
+        <div class="flex border-b border-gray-200 mb-6">
+            <button class="tab-button active px-4 py-2 text-[#003366] font-medium border-b-2 border-[#003366]" onclick="showTab('projects')">
+                Projects
+            </button>
+            <button class="tab-button px-4 py-2 text-gray-600 font-medium hover:text-[#003366]" onclick="showTab('certificates')">
+                Certificates
+            </button>
+            <button class="tab-button px-4 py-2 text-gray-600 font-medium hover:text-[#003366]" onclick="showTab('messages')">
+                Messages
+            </button>
+        </div>
+        
+        <!-- Projects Tab -->
+        <div id="projects-tab" class="tab-content">
+            {% if recent_projects %}
+                {% for project in recent_projects %}
+                <div class="flex justify-between items-center p-3 hover:bg-blue-50 rounded-lg transition mb-2">
+                    <div>
+                        <h3 class="font-semibold text-[#003366]">{{ project.title }}</h3>
+                        <p class="text-sm text-gray-600">{{ project.created_date|date:"M d, Y" }}</p>
+                    </div>
+                    {% if user.is_staff %}
+                    <a href="{% url 'admin:projects_app_project_change' project.id %}" class="text-[#003366] hover:text-blue-600">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-gray-600">No projects yet.</p>
+            {% endif %}
+        </div>
+        
+        <!-- Certificates Tab -->
+        <div id="certificates-tab" class="tab-content hidden">
+            {% if recent_certificates %}
+                {% for cert in recent_certificates %}
+                <div class="flex justify-between items-center p-3 hover:bg-blue-50 rounded-lg transition mb-2">
+                    <div>
+                        <h3 class="font-semibold text-[#003366]">{{ cert.title }}</h3>
+                        <p class="text-sm text-gray-600">{{ cert.issuer }} • {{ cert.issued_date|date:"M Y" }}</p>
+                    </div>
+                    {% if user.is_staff %}
+                    <a href="{% url 'admin:projects_app_certificate_change' cert.id %}" class="text-[#003366] hover:text-blue-600">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-gray-600">No certificates yet.</p>
+            {% endif %}
+        </div>
+        
+        <!-- Messages Tab -->
+        <div id="messages-tab" class="tab-content hidden">
+            {% if recent_messages %}
+                {% for msg in recent_messages %}
+                <div class="p-3 {% if not msg.is_read %}bg-yellow-50{% else %}bg-gray-50{% endif %} rounded-lg mb-2">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2">
+                                <h3 class="font-semibold text-[#003366]">{{ msg.name }}</h3>
+                                <span class="text-sm text-gray-500">{{ msg.email }}</span>
+                                {% if not msg.is_read %}
+                                <span class="bg-red-500 text-white text-xs px-2 py-1 rounded">New</span>
+                                {% endif %}
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">{{ msg.message|truncatechars:100 }}</p>
+                            <p class="text-xs text-gray-400 mt-1">{{ msg.timestamp|date:"M d, Y H:i" }}</p>
+                        </div>
+                        {% if user.is_staff %}
+                        <div class="flex gap-2 ml-4">
+                            {% if not msg.is_read %}
+                            <a href="{% url 'accounts:mark_message_read' msg.id %}" class="text-green-600 hover:text-green-800" title="Mark as read">
+                                <i class="fas fa-check-circle"></i>
+                            </a>
+                            {% endif %}
+                            <a href="{% url 'admin:contact_app_contactmessage_change' msg.id %}" class="text-[#003366] hover:text-blue-600" title="View details">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-gray-600">No messages yet.</p>
+            {% endif %}
+        </div>
+        
+        <!-- View All Links -->
+        {% if user.is_staff %}
+        <div class="mt-6 pt-4 border-t border-gray-200 flex justify-end gap-4">
+            <a href="{% url 'accounts:manage_projects' %}" class="text-[#003366] hover:underline text-sm">View All Projects →</a>
+            <a href="{% url 'accounts:manage_certificates' %}" class="text-[#003366] hover:underline text-sm">View All Certificates →</a>
+            <a href="{% url 'accounts:manage_messages' %}" class="text-[#003366] hover:underline text-sm">View All Messages →</a>
+        </div>
+        {% endif %}
     </div>
 </div>
+
+<!-- Tab Switching JavaScript -->
+<script>
+function showTab(tabName) {
+    // Hide all tab contents
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.add('hidden');
+    });
+    
+    // Show selected tab
+    document.getElementById(tabName + '-tab').classList.remove('hidden');
+    
+    // Update tab button styles
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.classList.remove('active', 'border-[#003366]', 'text-[#003366]');
+        button.classList.add('text-gray-600');
+    });
+    
+    // Style active tab
+    event.target.classList.add('active', 'border-[#003366]', 'text-[#003366]');
+    event.target.classList.remove('text-gray-600');
+}
+
+// Show projects tab by default
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('projects-tab').classList.remove('hidden');
+});
+</script>
+
+<style>
+/* Smooth transitions */
+.tab-button {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.tab-content {
+    transition: opacity 0.3s ease;
+}
+
+/* Card hover effects */
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 51, 102, 0.15);
+}
+
+/* Message item hover */
+.bg-yellow-50:hover, .bg-gray-50:hover {
+    filter: brightness(0.98);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .flex.justify-between.items-center.mb-8 {
+        flex-direction: column;
+        align-items: start;
+        gap: 0.5rem;
+    }
+    
+    .grid.md\:grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .tab-button {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid.md\:grid-cols-4 {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
 {% endblock %}

@@ -1,0 +1,454 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Admin Dashboard - SJB Portfolio{% endblock %}
+
+{% block content %}
+<style>
+    :root {
+        --light-blue: #e6f3ff;
+        --dark-blue: #003366;
+        --accent-blue: #1e4a7a;
+    }
+    
+    .admin-container {
+        background-color: var(--light-blue);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+    
+    .admin-card {
+        background: white;
+        border-radius: 20px;
+        padding: 1.5rem;
+        box-shadow: 0 10px 30px rgba(0, 51, 102, 0.1);
+        transition: all 0.4s ease;
+        border: 1px solid rgba(0, 51, 102, 0.1);
+        height: 100%;
+    }
+    
+    .admin-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 51, 102, 0.15);
+        border-color: var(--dark-blue);
+    }
+    
+    .stat-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0, 51, 102, 0.1);
+    }
+    
+    .stat-card:hover {
+        transform: scale(1.05);
+        border-color: var(--dark-blue);
+    }
+    
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        background: var(--light-blue);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 1.8rem;
+        color: var(--dark-blue);
+    }
+    
+    .action-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        border-bottom: 1px solid rgba(0, 51, 102, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .action-item:hover {
+        background: var(--light-blue);
+        padding-left: 1.5rem;
+    }
+    
+    .action-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+    
+    .action-details {
+        flex: 1;
+    }
+    
+    .action-title {
+        font-weight: 600;
+        color: var(--dark-blue);
+    }
+    
+    .action-time {
+        font-size: 0.85rem;
+        color: #666;
+    }
+    
+    .section-title {
+        color: var(--dark-blue);
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .section-title i {
+        color: var(--dark-blue);
+    }
+    
+    .quick-link {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.8rem;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        color: var(--dark-blue);
+        text-decoration: none;
+    }
+    
+    .quick-link:hover {
+        background: var(--light-blue);
+        padding-left: 1.5rem;
+    }
+    
+    .quick-link i {
+        width: 30px;
+        color: var(--dark-blue);
+    }
+    
+    .welcome-badge {
+        background: linear-gradient(135deg, var(--dark-blue) 0%, var(--accent-blue) 100%);
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 30px;
+        font-weight: 500;
+    }
+    
+    @media (max-width: 768px) {
+        .admin-container {
+            padding: 1rem;
+        }
+        
+        .stat-card {
+            padding: 1rem;
+        }
+        
+        .action-item {
+            padding: 0.8rem;
+        }
+    }
+</style>
+
+<div class="admin-container">
+    <div class="container mx-auto">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-[#003366] flex items-center gap-3">
+                <i class="fas fa-cog"></i>
+                Admin Dashboard
+            </h1>
+            <div class="flex items-center gap-4">
+                <span class="welcome-badge">
+                    <i class="fas fa-user mr-2"></i>{{ user.username }}
+                </span>
+                <span class="text-[#003366] opacity-70">
+                    <i class="far fa-calendar mr-2"></i>{{ today|date:"F j, Y" }}
+                </span>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid md:grid-cols-4 gap-6 mb-8">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-[#003366]">{{ total_projects }}</h3>
+                <p class="text-gray-600">Total Projects</p>
+                <a href="{% url 'admin:projects_app_project_changelist' %}" class="text-sm text-[#003366] hover:underline mt-2 inline-block">
+                    Manage →
+                </a>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-[#003366]">{{ total_certificates }}</h3>
+                <p class="text-gray-600">Certificates</p>
+                <a href="{% url 'admin:projects_app_certificate_changelist' %}" class="text-sm text-[#003366] hover:underline mt-2 inline-block">
+                    Manage →
+                </a>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-[#003366]">{{ total_messages }}</h3>
+                <p class="text-gray-600">Messages</p>
+                {% if unread_messages > 0 %}
+                <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full mt-1 inline-block">
+                    {{ unread_messages }} unread
+                </span>
+                {% endif %}
+                <a href="{% url 'admin:contact_app_contactmessage_changelist' %}" class="text-sm text-[#003366] hover:underline mt-2 inline-block">
+                    View →
+                </a>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-[#003366]">{{ total_users|default:"1" }}</h3>
+                <p class="text-gray-600">Users</p>
+                <a href="{% url 'admin:auth_user_changelist' %}" class="text-sm text-[#003366] hover:underline mt-2 inline-block">
+                    Manage →
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid lg:grid-cols-3 gap-6">
+            <!-- Left Column - App Management -->
+            <div class="lg:col-span-2">
+                <!-- App Sections -->
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <!-- Accounts App -->
+                    <div class="admin-card">
+                        <h3 class="section-title">
+                            <i class="fas fa-user-circle"></i>
+                            Accounts App
+                        </h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center p-2 hover:bg-[#e6f3ff] rounded-lg">
+                                <span class="font-medium">Profiles</span>
+                                <div class="flex gap-2">
+                                    <a href="{% url 'admin:accounts_app_profile_add' %}" class="text-green-600 hover:text-green-800">
+                                        <i class="fas fa-plus-circle"></i> Add
+                                    </a>
+                                    <a href="{% url 'admin:accounts_app_profile_changelist' %}" class="text-[#003366] hover:text-blue-600">
+                                        <i class="fas fa-edit"></i> Change
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Auth Token -->
+                    <div class="admin-card">
+                        <h3 class="section-title">
+                            <i class="fas fa-key"></i>
+                            Auth Token
+                        </h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center p-2 hover:bg-[#e6f3ff] rounded-lg">
+                                <span class="font-medium">Tokens</span>
+                                <div class="flex gap-2">
+                                    <a href="{% url 'admin:authtoken_token_add' %}" class="text-green-600 hover:text-green-800">
+                                        <i class="fas fa-plus-circle"></i> Add
+                                    </a>
+                                    <a href="{% url 'admin:authtoken_token_changelist' %}" class="text-[#003366] hover:text-blue-600">
+                                        <i class="fas fa-edit"></i> Change
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Authentication and Authorization -->
+                    <div class="admin-card">
+                        <h3 class="section-title">
+                            <i class="fas fa-lock"></i>
+                            Authentication
+                        </h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center p-2 hover:bg-[#e6f3ff] rounded-lg">
+                                <span class="font-medium">Groups</span>
+                                <div class="flex gap-2">
+                                    <a href="{% url 'admin:auth_group_add' %}" class="text-green-600 hover:text-green-800">
+                                        <i class="fas fa-plus-circle"></i> Add
+                                    </a>
+                                    <a href="{% url 'admin:auth_group_changelist' %}" class="text-[#003366] hover:text-blue-600">
+                                        <i class="fas fa-edit"></i> Change
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center p-2 hover:bg-[#e6f3ff] rounded-lg">
+                                <span class="font-medium">Users</span>
+                                <div class="flex gap-2">
+                                    <a href="{% url 'admin:auth_user_add' %}" class="text-green-600 hover:text-green-800">
+                                        <i class="fas fa-plus-circle"></i> Add
+                                    </a>
+                                    <a href="{% url 'admin:auth_user_changelist' %}" class="text-[#003366] hover:text-blue-600">
+                                        <i class="fas fa-edit"></i> Change
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Messages -->
+                    <div class="admin-card">
+                        <h3 class="section-title">
+                            <i class="fas fa-envelope"></i>
+                            Contact Messages
+                        </h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center p-2 hover:bg-[#e6f3ff] rounded-lg">
+                                <span class="font-medium">Messages</span>
+                                <div class="flex gap-2">
+                                    <a href="{% url 'admin:contact_app_contactmessage_add' %}" class="text-green-600 hover:text-green-800">
+                                        <i class="fas fa-plus-circle"></i> Add
+                                    </a>
+                                    <a href="{% url 'admin:contact_app_contactmessage_changelist' %}" class="text-[#003366] hover:text-blue-600">
+                                        <i class="fas fa-edit"></i> Change
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Projects -->
+                <div class="admin-card mb-6">
+                    <h3 class="section-title">
+                        <i class="fas fa-project-diagram"></i>
+                        Recent Projects
+                    </h3>
+                    <div class="space-y-3">
+                        {% for project in recent_projects %}
+                        <div class="action-item">
+                            <div class="action-icon" style="background: var(--dark-blue);">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="action-details">
+                                <div class="action-title">{{ project.title }}</div>
+                                <div class="action-time">{{ project.created_date|date:"M d, Y" }}</div>
+                            </div>
+                            <a href="{% url 'admin:projects_app_project_change' project.id %}" class="text-[#003366] hover:text-blue-600">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </div>
+                        {% empty %}
+                        <p class="text-gray-500">No projects yet.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Recent Certificates -->
+                <div class="admin-card">
+                    <h3 class="section-title">
+                        <i class="fas fa-certificate"></i>
+                        Recent Certificates
+                    </h3>
+                    <div class="space-y-3">
+                        {% for cert in recent_certificates %}
+                        <div class="action-item">
+                            <div class="action-icon" style="background: var(--accent-blue);">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="action-details">
+                                <div class="action-title">{{ cert.title }}</div>
+                                <div class="action-time">{{ cert.issuer }} • {{ cert.issued_date|date:"M Y" }}</div>
+                            </div>
+                            <a href="{% url 'admin:projects_app_certificate_change' cert.id %}" class="text-[#003366] hover:text-blue-600">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </div>
+                        {% empty %}
+                        <p class="text-gray-500">No certificates yet.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Recent Actions -->
+            <div class="lg:col-span-1">
+                <div class="admin-card sticky top-24">
+                    <h3 class="section-title">
+                        <i class="fas fa-history"></i>
+                        Recent Actions
+                    </h3>
+                    
+                    <div class="space-y-4 max-h-[600px] overflow-y-auto pr-2">
+                        {% for action in recent_actions %}
+                        <div class="action-item border rounded-lg">
+                            <div class="action-icon" style="background: {{ action.color }};">
+                                <i class="fas {{ action.icon }}"></i>
+                            </div>
+                            <div class="action-details">
+                                <div class="action-title text-sm">{{ action.name|truncatechars:40 }}</div>
+                                <div class="action-time">{{ action.date|timesince }} ago</div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p class="text-gray-500">No recent actions.</p>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="mt-6 pt-4 border-t border-gray-200">
+                        <h4 class="font-semibold text-[#003366] mb-3">Quick Stats</h4>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Total Projects:</span>
+                                <span class="font-bold">{{ total_projects }}</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Total Certificates:</span>
+                                <span class="font-bold">{{ total_certificates }}</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Total Messages:</span>
+                                <span class="font-bold">{{ total_messages }}</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Unread Messages:</span>
+                                <span class="font-bold {% if unread_messages > 0 %}text-red-600{% endif %}">{{ unread_messages }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="mt-6 pt-4 border-t border-gray-200">
+                        <h4 class="font-semibold text-[#003366] mb-3">Quick Actions</h4>
+                        <div class="space-y-1">
+                            <a href="{% url 'admin:projects_app_project_add' %}" class="quick-link">
+                                <i class="fas fa-plus-circle text-green-600"></i>
+                                <span>Add New Project</span>
+                            </a>
+                            <a href="{% url 'admin:projects_app_certificate_add' %}" class="quick-link">
+                                <i class="fas fa-plus-circle text-green-600"></i>
+                                <span>Add New Certificate</span>
+                            </a>
+                            <a href="{% url 'admin:index' %}" class="quick-link">
+                                <i class="fas fa-cog text-[#003366]"></i>
+                                <span>Full Admin Panel</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
