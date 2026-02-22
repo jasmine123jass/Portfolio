@@ -12,16 +12,16 @@ from django.core.paginator import Paginator
 from django.utils import timezone
 
 # ===== ONLY YOU CAN LOGIN =====
-# Add your username and email here - ONLY THESE WILL WORK
-AUTHORIZED_USERS = ['srujitha', 'admin', 'jasmine']  # Add your usernames
-AUTHORIZED_EMAILS = ['srujithajasmineb@gmail.com']  # Add your email
+AUTHORIZED_USERS = ['sruji', 'admin', 'jasmine', 'srujitha']
+AUTHORIZED_EMAILS = ['srujithajasmineb@gmail.com', 'baggamsrujithajasmine@gmail.com']
 
 def signup_view(request):
-    # COMPLETELY DISABLE SIGNUP - No one can create account
+    """Signup is completely disabled"""
     messages.error(request, 'Sign up is disabled. Only the administrator can access this portfolio.')
     return redirect('login')
 
 def login_view(request):
+    """User login for portfolio access"""
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -29,15 +29,12 @@ def login_view(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             
-            # Check if user exists and is authorized (ONLY YOU)
             if user is not None:
-                # Allow only specific users (YOU)
                 if username in AUTHORIZED_USERS or user.email in AUTHORIZED_EMAILS:
                     login(request, user)
                     messages.success(request, f'Welcome back, {username}!')
                     return redirect('home')
                 else:
-                    # Unauthorized user - show error and logout any existing session
                     messages.error(request, 'You are not authorized to access this portfolio.')
                     return redirect('login')
             else:
@@ -49,7 +46,8 @@ def login_view(request):
     
     return render(request, 'login.html', {'form': form})
 
-def admin_login_view(request):
+def admin_portal_login(request):
+    """Separate admin portal login - only YOU can access"""
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -57,12 +55,12 @@ def admin_login_view(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             
-            # Check if user is authorized admin (ONLY YOU)
+            # Only YOU can access admin portal - must be staff and authorized
             if user is not None and user.is_staff:
-                # Double-check it's you
                 if username in AUTHORIZED_USERS or user.email in AUTHORIZED_EMAILS:
                     login(request, user)
-                    messages.success(request, f'Welcome Admin, {username}!')
+                    messages.success(request, f'Welcome to Admin Portal, {username}!')
+                    # DIRECT REDIRECT TO DJANGO ADMIN
                     return redirect('admin:index')
                 else:
                     messages.error(request, 'You are not authorized for admin access.')
@@ -73,11 +71,13 @@ def admin_login_view(request):
     else:
         form = AuthenticationForm()
     
-    return render(request, 'admin/login.html', {'form': form})
+    # Using admin/admin_login.html template
+    return render(request, 'admin/admin_login.html', {'form': form})
 
 @login_required(login_url='login')
 def dashboard(request):
-    # Check if user is authorized (ONLY YOU)
+    """User dashboard - only for authorized users"""
+    # Check if user is authorized
     if request.user.username not in AUTHORIZED_USERS and request.user.email not in AUTHORIZED_EMAILS:
         messages.error(request, 'Unauthorized access.')
         return redirect('login')
@@ -88,7 +88,7 @@ def dashboard(request):
     total_messages = ContactMessage.objects.count()
     unread_messages = ContactMessage.objects.filter(is_read=False).count()
     
-    # Get recent items (last 5)
+    # Get recent items
     recent_projects = Project.objects.all().order_by('-created_date')[:5]
     recent_certificates = Certificate.objects.all().order_by('-issued_date')[:5]
     recent_messages = ContactMessage.objects.all().order_by('-timestamp')[:5]
@@ -113,81 +113,15 @@ def dashboard(request):
     }
     return render(request, 'dashboard.html', context)
 
-@staff_member_required(login_url='admin_login')
-def admin_dashboard(request):
-    # Check if user is authorized admin (ONLY YOU)
-    if request.user.username not in AUTHORIZED_USERS and request.user.email not in AUTHORIZED_EMAILS:
-        messages.error(request, 'Unauthorized admin access.')
-        return redirect('admin_login')
-    
-    # Get all stats
-    total_projects = Project.objects.count()
-    total_certificates = Certificate.objects.count()
-    total_messages = ContactMessage.objects.count()
-    unread_messages = ContactMessage.objects.filter(is_read=False).count()
-    total_users = User.objects.count()
-    
-    # Get recent items
-    recent_projects = Project.objects.all().order_by('-created_date')[:5]
-    recent_certificates = Certificate.objects.all().order_by('-issued_date')[:5]
-    recent_messages = ContactMessage.objects.all().order_by('-timestamp')[:5]
-    
-    # Combine and sort recent actions
-    recent_actions = []
-    
-    for project in recent_projects:
-        recent_actions.append({
-            'type': 'project',
-            'name': project.title,
-            'date': project.created_date,
-            'icon': 'fa-project-diagram',
-            'color': '#003366'
-        })
-    
-    for cert in recent_certificates:
-        recent_actions.append({
-            'type': 'certificate',
-            'name': f"{cert.title} - {cert.issuer}",
-            'date': cert.issued_date,
-            'icon': 'fa-certificate',
-            'color': '#1e4a7a'
-        })
-    
-    for msg in recent_messages:
-        recent_actions.append({
-            'type': 'message',
-            'name': f"{msg.name} - {msg.email}",
-            'date': msg.timestamp,
-            'icon': 'fa-envelope',
-            'color': '#ff6b6b'
-        })
-    
-    # Sort by date (newest first)
-    recent_actions.sort(key=lambda x: x['date'], reverse=True)
-    recent_actions = recent_actions[:10]
-    
-    context = {
-        'total_projects': total_projects,
-        'total_certificates': total_certificates,
-        'total_messages': total_messages,
-        'unread_messages': unread_messages,
-        'total_users': total_users,
-        'recent_actions': recent_actions,
-        'recent_projects': recent_projects,
-        'recent_certificates': recent_certificates,
-        'recent_messages': recent_messages,
-        'user': request.user,
-        'today': timezone.now(),
-    }
-    return render(request, 'admin_dashboard.html', context)
+# ===== ADMIN DASHBOARD REMOVED - Using Django default admin =====
 
-# ===== STAFF ONLY VIEWS (But only YOU are staff) =====
-@staff_member_required(login_url='admin_login')
+# ===== STAFF ONLY MANAGEMENT VIEWS =====
+@staff_member_required(login_url='admin_portal_login')
 def manage_projects(request):
-    # Check if user is authorized (ONLY YOU)
+    """Manage all projects - staff only"""
     if request.user.username not in AUTHORIZED_USERS and request.user.email not in AUTHORIZED_EMAILS:
         messages.error(request, 'Unauthorized access.')
-        return redirect('admin_login')
+        return redirect('admin_portal_login')
     
     projects_list = Project.objects.all().order_by('-created_date')
     paginator = Paginator(projects_list, 10)
@@ -195,12 +129,12 @@ def manage_projects(request):
     projects = paginator.get_page(page)
     return render(request, 'manage_projects.html', {'projects': projects})
 
-@staff_member_required(login_url='admin_login')
+@staff_member_required(login_url='admin_portal_login')
 def manage_certificates(request):
-    # Check if user is authorized (ONLY YOU)
+    """Manage all certificates - staff only"""
     if request.user.username not in AUTHORIZED_USERS and request.user.email not in AUTHORIZED_EMAILS:
         messages.error(request, 'Unauthorized access.')
-        return redirect('admin_login')
+        return redirect('admin_portal_login')
     
     certificates_list = Certificate.objects.all().order_by('-issued_date')
     paginator = Paginator(certificates_list, 10)
@@ -208,12 +142,12 @@ def manage_certificates(request):
     certificates = paginator.get_page(page)
     return render(request, 'manage_certificates.html', {'certificates': certificates})
 
-@staff_member_required(login_url='admin_login')
+@staff_member_required(login_url='admin_portal_login')
 def manage_messages(request):
-    # Check if user is authorized (ONLY YOU)
+    """Manage all contact messages - staff only"""
     if request.user.username not in AUTHORIZED_USERS and request.user.email not in AUTHORIZED_EMAILS:
         messages.error(request, 'Unauthorized access.')
-        return redirect('admin_login')
+        return redirect('admin_portal_login')
     
     messages_list = ContactMessage.objects.all().order_by('-timestamp')
     paginator = Paginator(messages_list, 10)
@@ -221,12 +155,12 @@ def manage_messages(request):
     messages_list = paginator.get_page(page)
     return render(request, 'manage_messages.html', {'messages': messages_list})
 
-@staff_member_required(login_url='admin_login')
+@staff_member_required(login_url='admin_portal_login')
 def mark_message_read(request, pk):
-    # Check if user is authorized (ONLY YOU)
+    """Mark a message as read"""
     if request.user.username not in AUTHORIZED_USERS and request.user.email not in AUTHORIZED_EMAILS:
         messages.error(request, 'Unauthorized access.')
-        return redirect('admin_login')
+        return redirect('admin_portal_login')
     
     message = get_object_or_404(ContactMessage, pk=pk)
     message.is_read = True
@@ -234,12 +168,12 @@ def mark_message_read(request, pk):
     messages.success(request, f'Message from {message.name} marked as read.')
     return redirect('accounts:manage_messages')
 
-@staff_member_required(login_url='admin_login')
+@staff_member_required(login_url='admin_portal_login')
 def delete_message(request, pk):
-    # Check if user is authorized (ONLY YOU)
+    """Delete a message"""
     if request.user.username not in AUTHORIZED_USERS and request.user.email not in AUTHORIZED_EMAILS:
         messages.error(request, 'Unauthorized access.')
-        return redirect('admin_login')
+        return redirect('admin_portal_login')
     
     message = get_object_or_404(ContactMessage, pk=pk)
     if request.method == 'POST':
@@ -249,12 +183,12 @@ def delete_message(request, pk):
         return redirect('accounts:manage_messages')
     return render(request, 'confirm_delete_message.html', {'message': message})
 
-@staff_member_required(login_url='admin_login')
+@staff_member_required(login_url='admin_portal_login')
 def project_create(request):
-    # Check if user is authorized (ONLY YOU)
+    """Create a new project"""
     if request.user.username not in AUTHORIZED_USERS and request.user.email not in AUTHORIZED_EMAILS:
         messages.error(request, 'Unauthorized access.')
-        return redirect('admin_login')
+        return redirect('admin_portal_login')
     
     if request.method == 'POST':
         title = request.POST.get('title')
@@ -277,12 +211,12 @@ def project_create(request):
     
     return render(request, 'project_form.html')
 
-@staff_member_required(login_url='admin_login')
+@staff_member_required(login_url='admin_portal_login')
 def project_edit(request, pk):
-    # Check if user is authorized (ONLY YOU)
+    """Edit an existing project"""
     if request.user.username not in AUTHORIZED_USERS and request.user.email not in AUTHORIZED_EMAILS:
         messages.error(request, 'Unauthorized access.')
-        return redirect('admin_login')
+        return redirect('admin_portal_login')
     
     project = get_object_or_404(Project, pk=pk)
     
@@ -302,12 +236,12 @@ def project_edit(request, pk):
     
     return render(request, 'project_form.html', {'project': project})
 
-@staff_member_required(login_url='admin_login')
+@staff_member_required(login_url='admin_portal_login')
 def project_delete(request, pk):
-    # Check if user is authorized (ONLY YOU)
+    """Delete a project"""
     if request.user.username not in AUTHORIZED_USERS and request.user.email not in AUTHORIZED_EMAILS:
         messages.error(request, 'Unauthorized access.')
-        return redirect('admin_login')
+        return redirect('admin_portal_login')
     
     project = get_object_or_404(Project, pk=pk)
     
@@ -319,12 +253,12 @@ def project_delete(request, pk):
     
     return render(request, 'confirm_delete_project.html', {'project': project})
 
-@staff_member_required(login_url='admin_login')
+@staff_member_required(login_url='admin_portal_login')
 def certificate_create(request):
-    # Check if user is authorized (ONLY YOU)
+    """Create a new certificate"""
     if request.user.username not in AUTHORIZED_USERS and request.user.email not in AUTHORIZED_EMAILS:
         messages.error(request, 'Unauthorized access.')
-        return redirect('admin_login')
+        return redirect('admin_portal_login')
     
     if request.method == 'POST':
         title = request.POST.get('title')
@@ -349,12 +283,12 @@ def certificate_create(request):
     
     return render(request, 'certificate_form.html')
 
-@staff_member_required(login_url='admin_login')
+@staff_member_required(login_url='admin_portal_login')
 def certificate_edit(request, pk):
-    # Check if user is authorized (ONLY YOU)
+    """Edit an existing certificate"""
     if request.user.username not in AUTHORIZED_USERS and request.user.email not in AUTHORIZED_EMAILS:
         messages.error(request, 'Unauthorized access.')
-        return redirect('admin_login')
+        return redirect('admin_portal_login')
     
     certificate = get_object_or_404(Certificate, pk=pk)
     
@@ -375,12 +309,12 @@ def certificate_edit(request, pk):
     
     return render(request, 'certificate_form.html', {'certificate': certificate})
 
-@staff_member_required(login_url='admin_login')
+@staff_member_required(login_url='admin_portal_login')
 def certificate_delete(request, pk):
-    # Check if user is authorized (ONLY YOU)
+    """Delete a certificate"""
     if request.user.username not in AUTHORIZED_USERS and request.user.email not in AUTHORIZED_EMAILS:
         messages.error(request, 'Unauthorized access.')
-        return redirect('admin_login')
+        return redirect('admin_portal_login')
     
     certificate = get_object_or_404(Certificate, pk=pk)
     

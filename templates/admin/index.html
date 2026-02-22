@@ -1,0 +1,309 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}
+<style>
+    /* Simple and Clean Admin Dashboard */
+    .dashboard-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .dashboard-header {
+        margin-bottom: 30px;
+    }
+    
+    .dashboard-header h1 {
+        color: #003366;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+    
+    .app-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 25px;
+        margin-top: 20px;
+    }
+    
+    .app-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,51,102,0.1);
+        border: 1px solid rgba(0,51,102,0.1);
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+    
+    .app-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,51,102,0.15);
+        border-color: #003366;
+    }
+    
+    .app-header {
+        background: #f8fafd;
+        padding: 20px;
+        border-bottom: 2px solid #003366;
+    }
+    
+    .app-header h2 {
+        color: #003366;
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .app-header h2 i {
+        color: #003366;
+        font-size: 1.4rem;
+    }
+    
+    .app-content {
+        padding: 15px;
+    }
+    
+    .model-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .model-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 15px;
+        border-bottom: 1px solid rgba(0,51,102,0.1);
+        transition: all 0.2s ease;
+    }
+    
+    .model-item:last-child {
+        border-bottom: none;
+    }
+    
+    .model-item:hover {
+        background: #f8fafd;
+        border-radius: 8px;
+    }
+    
+    .model-name {
+        color: #003366;
+        font-weight: 500;
+        text-decoration: none;
+        font-size: 1rem;
+    }
+    
+    .model-name:hover {
+        color: #1e4a7a;
+        text-decoration: underline;
+    }
+    
+    .model-actions {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .action-link {
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+    
+    .action-link.add {
+        background: #e6f3ff;
+        color: #003366;
+    }
+    
+    .action-link.add:hover {
+        background: #003366;
+        color: white;
+    }
+    
+    .action-link.change {
+        background: #f0f0f0;
+        color: #003366;
+    }
+    
+    .action-link.change:hover {
+        background: #003366;
+        color: white;
+    }
+    
+    /* Recent Actions Sidebar */
+    #content-related {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,51,102,0.1);
+        border: 1px solid rgba(0,51,102,0.1);
+        overflow: hidden;
+        margin-top: 30px;
+    }
+    
+    #content-related h2 {
+        background: #f8fafd;
+        color: #003366;
+        font-size: 1.2rem;
+        font-weight: 700;
+        padding: 20px;
+        margin: 0;
+        border-bottom: 2px solid #003366;
+    }
+    
+    #content-related ul {
+        list-style: none;
+        padding: 15px;
+        margin: 0;
+    }
+    
+    #content-related li {
+        padding: 12px 15px;
+        border-bottom: 1px solid rgba(0,51,102,0.1);
+        color: #003366;
+    }
+    
+    #content-related li:last-child {
+        border-bottom: none;
+    }
+    
+    #content-related a {
+        color: #003366;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    
+    #content-related a:hover {
+        color: #1e4a7a;
+        text-decoration: underline;
+    }
+    
+    .mini {
+        color: #666;
+        font-size: 0.85rem;
+        display: block;
+        margin-top: 5px;
+    }
+    
+    @media (max-width: 768px) {
+        .app-list {
+            grid-template-columns: 1fr;
+        }
+        
+        .model-item {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .model-actions {
+            width: 100%;
+            justify-content: flex-start;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="content-main" class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>{% translate 'Site administration' %}</h1>
+        <p style="color: #666;">Manage your portfolio content from here</p>
+    </div>
+    
+    <div class="app-list">
+        {% for app in app_list %}
+        <div class="app-card">
+            <div class="app-header">
+                <h2>
+                    {% if app.name == 'Accounts_App' %}
+                        <i class="fas fa-user-circle"></i>
+                    {% elif app.name == 'Projects_App' %}
+                        <i class="fas fa-project-diagram"></i>
+                    {% elif app.name == 'Contact_App' %}
+                        <i class="fas fa-envelope"></i>
+                    {% elif app.name == 'Api_App' %}
+                        <i class="fas fa-code"></i>
+                    {% elif app.name == 'Auth' or app.name == 'Authentication and Authorization' %}
+                        <i class="fas fa-lock"></i>
+                    {% elif app.name == 'Authtoken' or app.name == 'Auth Token' %}
+                        <i class="fas fa-key"></i>
+                    {% else %}
+                        <i class="fas fa-cog"></i>
+                    {% endif %}
+                    {{ app.name }}
+                </h2>
+            </div>
+            
+            <div class="app-content">
+                <ul class="model-list">
+                    {% for model in app.models %}
+                    <li class="model-item">
+                        <a href="{{ model.admin_url }}" class="model-name">{{ model.name }}</a>
+                        <div class="model-actions">
+                            {% if model.add_url %}
+                            <a href="{{ model.add_url }}" class="action-link add">
+                                <i class="fas fa-plus-circle"></i> Add
+                            </a>
+                            {% endif %}
+                            {% if model.admin_url %}
+                            <a href="{{ model.admin_url }}" class="action-link change">
+                                <i class="fas fa-edit"></i> Change
+                            </a>
+                            {% endif %}
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="content-related">
+    <h2>{% translate 'Recent actions' %}</h2>
+    {% load log %}
+    {% get_admin_log 10 as admin_log %}
+    {% if not admin_log %}
+    <p style="padding: 20px; color: #666;">{% translate 'None available' %}</p>
+    {% else %}
+    <ul class="actionlist">
+    {% for entry in admin_log %}
+    <li>
+        <span class="visually-hidden">
+            {% if entry.is_addition %}{% translate 'Added:' %}
+            {% elif entry.is_change %}{% translate 'Changed:' %}
+            {% elif entry.is_deletion %}{% translate 'Deleted:' %}{% endif %}
+        </span>
+        
+        {% if entry.is_deletion or not entry.get_admin_url %}
+            <span style="font-weight: 500;">{{ entry.object_repr }}</span>
+        {% else %}
+            <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+        {% endif %}
+        
+        <br>
+        <span class="mini">
+            {% if entry.content_type %}
+                {% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}
+            {% else %}
+                {% translate 'Unknown content' %}
+            {% endif %}
+            &nbsp;&nbsp;
+            <i class="far fa-clock"></i> {{ entry.action_time|timesince }} ago
+        </span>
+    </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endblock %}

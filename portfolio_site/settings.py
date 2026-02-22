@@ -9,7 +9,7 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-dev-key-change-in-production")
+SECRET_KEY = os.getenv("SECRET_KEY", "'django-insecure--ub^m6!9&v1jkf59*+cqt($gpooafgm9u0&cxiu=e7npzy!uyz'")
 DEBUG = os.getenv("DEBUG", "True") == "True"
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.onrender.com']
 
@@ -69,6 +69,20 @@ DATABASES = {
     }
 }
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Portfolio_db',  
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',  
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
+
+
+
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -95,9 +109,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'srujithajasmineb@gmail.com'
-EMAIL_HOST_PASSWORD = 'ayfg hhtx wnge kndv'
-CONTACT_RECIPIENT = 'srujithajasmineb@gmail.com'
+EMAIL_HOST_USER = 'baggamsrujithajasmine@gmail.com'
+EMAIL_HOST_PASSWORD = 'lkcz owfq bsqn tpht'
+CONTACT_RECIPIENT = 'baggamsrujithajasmine@gmail.com'
+
+CONTACT_EMAIL = 'baggamsrujithajasmine@gmail.com'
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
@@ -107,20 +124,22 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
 }
+
 if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
+   # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
+   pass
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-# Add these at the bottom
+
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'login'
 
-# Admin login URL
+
 ADMIN_LOGIN_URL = 'accounts:admin_login'
 
 # Your authorized users (only you)
-AUTHORIZED_USERS = ['srujitha', 'admin']  # Add your usernames
-AUTHORIZED_EMAILS = ['srujithajasmineb@gmail.com']  # Add your email
+AUTHORIZED_USERS = ['Jasmine', 'admin']  
+AUTHORIZED_EMAILS = ['baggamsrujithajasmine@gmail.com']  

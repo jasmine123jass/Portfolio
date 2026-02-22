@@ -1,47 +1,340 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Message Sent Successfully{% endblock %}
+{% block title %}Message Sent - Srujitha Jasmine Baggam{% endblock %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-20">
-    <div class="max-w-2xl mx-auto text-center">
-        <div class="card">
-            <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <i class="fas fa-check-circle text-5xl text-green-500"></i>
+<style>
+    :root {
+        --light-blue: #e6f3ff;
+        --dark-blue: #003366;
+        --accent-blue: #1e4a7a;
+        --white: #ffffff;
+        --shadow: 0 10px 30px rgba(0, 51, 102, 0.1);
+    }
+    
+    .success-container {
+        min-height: calc(100vh - 200px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        background: var(--light-blue);
+    }
+    
+    .success-card {
+        background: var(--white);
+        border-radius: 30px;
+        padding: 3rem;
+        max-width: 600px;
+        width: 100%;
+        box-shadow: var(--shadow);
+        border: 1px solid rgba(0, 51, 102, 0.1);
+        animation: float 4s ease-in-out infinite;
+        text-align: center;
+    }
+    
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+    
+    .success-icon {
+        width: 100px;
+        height: 100px;
+        background: var(--light-blue);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 2rem;
+        font-size: 3rem;
+        color: var(--dark-blue);
+        animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+    
+    .success-title {
+        color: var(--dark-blue);
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+    
+    .success-message {
+        color: #666;
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: var(--light-blue);
+        border-radius: 15px;
+        border: 1px solid rgba(0, 51, 102, 0.1);
+    }
+    
+    .next-steps {
+        text-align: left;
+        background: var(--white);
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+        border: 2px solid var(--light-blue);
+    }
+    
+    .next-steps h3 {
+        color: var(--dark-blue);
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .next-steps h3 i {
+        color: var(--dark-blue);
+        background: var(--light-blue);
+        padding: 8px;
+        border-radius: 10px;
+    }
+    
+    .step-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        border-bottom: 1px solid var(--light-blue);
+        transition: all 0.3s ease;
+    }
+    
+    .step-item:last-child {
+        border-bottom: none;
+    }
+    
+    .step-item:hover {
+        background: var(--light-blue);
+        border-radius: 10px;
+        transform: translateX(5px);
+    }
+    
+    .step-check {
+        width: 30px;
+        height: 30px;
+        background: var(--dark-blue);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1rem;
+        flex-shrink: 0;
+    }
+    
+    .step-text {
+        color: #444;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+    
+    .action-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin: 2rem 0;
+    }
+    
+    .btn-primary {
+        background: var(--dark-blue);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 51, 102, 0.2);
+    }
+    
+    .btn-primary:hover {
+        background: var(--accent-blue);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 51, 102, 0.3);
+    }
+    
+    .btn-outline {
+        background: transparent;
+        color: var(--dark-blue);
+        border: 2px solid var(--dark-blue);
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-outline:hover {
+        background: var(--dark-blue);
+        color: white;
+        transform: translateY(-3px);
+    }
+    
+    .nav-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 2px solid var(--light-blue);
+    }
+    
+    .nav-link {
+        color: var(--dark-blue);
+        text-decoration: none;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover {
+        background: var(--light-blue);
+        transform: translateY(-2px);
+    }
+    
+    .nav-link i {
+        color: var(--dark-blue);
+    }
+    
+    @media (max-width: 768px) {
+        .success-card {
+            padding: 2rem;
+        }
+        
+        .success-title {
+            font-size: 2rem;
+        }
+        
+        .action-buttons {
+            flex-direction: column;
+        }
+        
+        .nav-links {
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .step-item {
+            padding: 0.75rem;
+        }
+    }
+</style>
+
+<div class="success-container">
+    <div class="success-card">
+        <!-- Success Icon -->
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        
+        <!-- Title -->
+        <h1 class="success-title">Thank You!</h1>
+        
+        <!-- Success Message -->
+        <div class="success-message">
+            <i class="fas fa-envelope-open-text mr-2"></i>
+            Your message has been sent successfully. I'll get back to you within 24 hours!
+        </div>
+        
+        <!-- What Happens Next Section -->
+        <div class="next-steps">
+            <h3>
+                <i class="fas fa-clock"></i>
+                What happens next?
+            </h3>
+            
+            <div class="step-item">
+                <div class="step-check">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="step-text">
+                    <strong>You'll receive a confirmation email shortly</strong>
+                    <br>Check your inbox for a confirmation message
+                </div>
             </div>
             
-            <h1 class="text-4xl font-bold text-[#003366] mb-4">Thank You!</h1>
-            <p class="text-xl text-gray-600 mb-8">
-                Your message has been sent successfully. I'll get back to you within 24 hours.
-            </p>
-            
-            <div class="bg-blue-50 p-6 rounded-lg mb-8 text-left">
-                <h2 class="font-semibold text-[#003366] mb-3">What happens next?</h2>
-                <ul class="space-y-3">
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                        <span>You'll receive a confirmation email shortly</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                        <span>I'll review your message carefully</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                        <span>I'll respond to your inquiry within 24 hours</span>
-                    </li>
-                </ul>
+            <div class="step-item">
+                <div class="step-check">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="step-text">
+                    <strong>I'll review your message carefully</strong>
+                    <br>Your message has been saved in my system
+                </div>
             </div>
             
-            <div class="flex flex-wrap gap-4 justify-center">
-                <a href="/" class="btn-primary">
-                    <i class="fas fa-home mr-2"></i>Back to Home
+            <div class="step-item">
+                <div class="step-check">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="step-text">
+                    <strong>I'll respond to your inquiry within 24 hours</strong>
+                    <br>I'll get back to you as soon as possible
+                </div>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <a href="/" class="btn-primary">
+                <i class="fas fa-home"></i>
+                Back to Home
+            </a>
+            <a href="{% url 'projects:project_list' %}" class="btn-outline">
+                <i class="fas fa-project-diagram"></i>
+                View Projects
+            </a>
+        </div>
+        
+        <!-- Navigation Links -->
+        <div class="nav-links">
+            {% if user.is_authenticated %}
+                <a href="{% url 'accounts:dashboard' %}" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
                 </a>
-                <a href="{% url 'projects:project_list' %}" class="btn-outline">
-                    <i class="fas fa-project-diagram mr-2"></i>View Projects
+                
+                {% if user.is_staff %}
+                <a href="{% url 'admin:index' %}" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    Admin
                 </a>
-            </div>
+                {% endif %}
+                
+                <form method="post" action="{% url 'accounts:logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-link" style="background: none; border: none; cursor: pointer;">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </form>
+            {% endif %}
         </div>
     </div>
 </div>

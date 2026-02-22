@@ -230,7 +230,7 @@
                     <i class="fas fa-robot mr-2"></i>SJB Portfolio
                 </a>
                 
-                <!-- Desktop Menu - Updated with only Home and Contact -->
+                <!-- Desktop Menu - Admin Link REMOVED -->
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="/" class="nav-link font-medium">Home</a>
                     <a href="{% url 'contact:contact' %}" class="nav-link font-medium">Contact</a>
@@ -239,11 +239,8 @@
                         <a href="{% url 'accounts:dashboard' %}" class="nav-link font-medium">
                             <i class="fas fa-tachometer-alt mr-1"></i>Dashboard
                         </a>
-                        {% if user.is_staff %}
-                            <a href="{% url 'admin:index' %}" class="nav-link font-medium" style="color: #ff6b6b;">
-                                <i class="fas fa-cog mr-1"></i>Admin
-                            </a>
-                        {% endif %}
+                        <!-- ADMIN LINK REMOVED - Only Dashboard remains for logged in users -->
+                        
                         <form method="post" action="{% url 'accounts:logout' %}" class="inline">
                             {% csrf_token %}
                             <button type="submit" class="btn-outline text-sm py-2 px-4">
@@ -263,16 +260,15 @@
                 </button>
             </div>
 
-            <!-- Mobile Menu - Updated with only Home and Contact -->
+            <!-- Mobile Menu - Admin Link REMOVED -->
             <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4">
                 <div class="flex flex-col space-y-3">
                     <a href="/" class="nav-link block" onclick="closeMobileMenu()">Home</a>
                     <a href="{% url 'contact:contact' %}" class="nav-link block" onclick="closeMobileMenu()">Contact</a>
                     {% if user.is_authenticated %}
                         <a href="{% url 'accounts:dashboard' %}" class="nav-link block" onclick="closeMobileMenu()">Dashboard</a>
-                        {% if user.is_staff %}
-                            <a href="{% url 'admin:index' %}" class="nav-link block" style="color: #ff6b6b;" onclick="closeMobileMenu()">Admin</a>
-                        {% endif %}
+                        <!-- ADMIN LINK REMOVED from mobile menu -->
+                        
                         <form method="post" action="{% url 'accounts:logout' %}">
                             {% csrf_token %}
                             <button type="submit" class="btn-outline w-full">Logout</button>
