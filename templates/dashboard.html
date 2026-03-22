@@ -4,45 +4,325 @@
 {% block title %}Dashboard - Srujitha Jasmine Baggam{% endblock %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-12">
-    <!-- Welcome Section with Stats -->
-    <div class="flex justify-between items-center mb-8">
-        <h1 class="text-3xl md:text-4xl font-bold text-[#003366]">Welcome, {{ user.username }}!</h1>
-        <div class="text-sm text-gray-600">
-            Last login: {{ user.last_login|date:"F d, Y H:i" }}
-        </div>
-    </div>
+<style>
+    .dashboard-container {
+        background-color: var(--light-blue);
+        min-height: 100vh;
+        padding: 2rem;
+    }
     
+    .dashboard-header {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 10px 30px rgba(0,51,102,0.1);
+        border: 1px solid rgba(0,51,102,0.1);
+        animation: float 4s ease-in-out infinite;
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .stat-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0,51,102,0.1);
+        border: 1px solid rgba(0,51,102,0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-5px);
+        border-color: #003366;
+        box-shadow: 0 15px 30px rgba(0,51,102,0.15);
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #003366;
+    }
+    
+    .stat-label {
+        color: #666;
+        font-size: 1rem;
+    }
+    
+    .action-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .action-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        text-decoration: none;
+        display: block;
+        color: inherit;
+    }
+    
+    .action-card:hover {
+        transform: translateY(-5px);
+        border-color: #003366;
+        box-shadow: 0 10px 25px rgba(0,51,102,0.15);
+    }
+    
+    .action-icon {
+        width: 60px;
+        height: 60px;
+        background: #e6f3ff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 1.8rem;
+        color: #003366;
+    }
+    
+    .admin-badge {
+        background: #ff6b6b;
+        color: white;
+        font-size: 0.7rem;
+        padding: 0.2rem 0.5rem;
+        border-radius: 10px;
+        margin-left: 0.5rem;
+    }
+    
+    .messages-section {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px rgba(0,51,102,0.1);
+        margin-top: 2rem;
+    }
+    
+    .message-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        border-bottom: 1px solid #eef2f6;
+        transition: all 0.3s ease;
+    }
+    
+    .message-item:hover {
+        background: #e6f3ff;
+        border-radius: 10px;
+    }
+    
+    .message-avatar {
+        width: 50px;
+        height: 50px;
+        background: #003366;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        font-size: 1.2rem;
+    }
+    
+    .message-content {
+        flex: 1;
+    }
+    
+    .message-name {
+        font-weight: 600;
+        color: #003366;
+    }
+    
+    .message-email {
+        font-size: 0.85rem;
+        color: #666;
+    }
+    
+    .message-text {
+        color: #444;
+        margin-top: 0.3rem;
+    }
+    
+    .message-time {
+        font-size: 0.8rem;
+        color: #999;
+    }
+    
+    .password-note {
+        background: #fff3cd;
+        color: #856404;
+        padding: 1rem;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+        border: 1px solid #ffeeba;
+    }
+    
+    .tab-button {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .tab-content {
+        transition: opacity 0.3s ease;
+    }
+    
+    .card {
+        transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 51, 102, 0.15);
+    }
+    
+    @media (max-width: 768px) {
+        .flex.justify-between.items-center.mb-8 {
+            flex-direction: column;
+            align-items: start;
+            gap: 0.5rem;
+        }
+        
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .action-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .tab-button {
+            font-size: 0.9rem;
+            padding: 0.5rem 0.75rem;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .action-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="dashboard-container">
+    <!-- Welcome Header -->
+    <div class="dashboard-header">
+        <div class="flex justify-between items-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-[#003366]">
+                Welcome, {{ user.username }}! 👋
+            </h1>
+            <div class="text-sm text-gray-600">
+                Last login: {{ user.last_login|date:"F d, Y H:i" }}
+            </div>
+        </div>
+        <p class="text-gray-600 mt-2">
+            Manage your portfolio content from here.
+        </p>
+    </div>
+
     <!-- Stats Cards -->
-    <div class="grid md:grid-cols-4 gap-4 mb-8">
-        <div class="card text-center p-4">
+    <div class="stats-grid">
+        <div class="stat-card">
             <i class="fas fa-project-diagram text-3xl text-[#003366] mb-2"></i>
-            <h3 class="text-2xl font-bold">{{ total_projects|default:"0" }}</h3>
-            <p class="text-gray-600">Total Projects</p>
+            <div class="stat-number">{{ total_projects|default:"0" }}</div>
+            <div class="stat-label">Total Projects</div>
         </div>
         
-        <div class="card text-center p-4">
+        <div class="stat-card">
             <i class="fas fa-certificate text-3xl text-[#003366] mb-2"></i>
-            <h3 class="text-2xl font-bold">{{ total_certificates|default:"0" }}</h3>
-            <p class="text-gray-600">Certificates</p>
+            <div class="stat-number">{{ total_certificates|default:"0" }}</div>
+            <div class="stat-label">Certificates</div>
         </div>
         
-        <div class="card text-center p-4">
+        <div class="stat-card">
             <i class="fas fa-envelope text-3xl text-[#003366] mb-2"></i>
-            <h3 class="text-2xl font-bold">{{ total_messages|default:"0" }}</h3>
-            <p class="text-gray-600">Messages</p>
+            <div class="stat-number">{{ total_messages|default:"0" }}</div>
+            <div class="stat-label">Messages</div>
             {% if unread_messages > 0 %}
-            <span class="text-xs bg-red-500 text-white px-2 py-1 rounded-full mt-1 inline-block">
+            <span class="inline-block bg-red-500 text-white text-xs px-2 py-1 rounded-full mt-2">
                 {{ unread_messages }} unread
             </span>
             {% endif %}
         </div>
         
-       
+        <div class="stat-card">
+            <i class="fas fa-users text-3xl text-[#003366] mb-2"></i>
+            <div class="stat-number">{{ total_users|default:"1" }}</div>
+            <div class="stat-label">Users</div>
+        </div>
+    </div>
+
+    <!-- Quick Actions Section - Only visible to staff (YOU) -->
+    {% if user.is_authenticated and user.is_staff %}
+    <h2 class="text-2xl font-bold text-[#003366] mb-4">Quick Actions</h2>
     
-    <!-- Your Existing Grid -->
+    <!-- Password Note -->
+    <div class="password-note">
+        <i class="fas fa-lock mr-2"></i>
+        <strong>Admin Access:</strong> You have full control to manage content.
+    </div>
     
-    
+    <div class="action-grid">
+        <!-- Add Project -->
+        <a href="{% url 'admin:projects_app_project_add' %}" class="action-card">
+            <div class="action-icon">
+                <i class="fas fa-plus-circle"></i>
+            </div>
+            <h3 class="font-bold text-lg">Add Project</h3>
+            <p class="text-sm text-gray-600 mt-1">Create new project</p>
+            <span class="admin-badge">Admin</span>
+        </a>
+        
+        <!-- Add Certificate -->
+        <a href="{% url 'admin:projects_app_certificate_add' %}" class="action-card">
+            <div class="action-icon">
+                <i class="fas fa-certificate"></i>
+            </div>
+            <h3 class="font-bold text-lg">Add Certificate</h3>
+            <p class="text-sm text-gray-600 mt-1">Upload new certificate</p>
+            <span class="admin-badge">Admin</span>
+        </a>
+        
+        <!-- Manage Projects -->
+        <a href="{% url 'admin:projects_app_project_changelist' %}" class="action-card">
+            <div class="action-icon">
+                <i class="fas fa-edit"></i>
+            </div>
+            <h3 class="font-bold text-lg">Manage Projects</h3>
+            <p class="text-sm text-gray-600 mt-1">Edit/Delete projects</p>
+            <span class="admin-badge">Admin</span>
+        </a>
+        
+        <!-- Manage Certificates -->
+        <a href="{% url 'admin:projects_app_certificate_changelist' %}" class="action-card">
+            <div class="action-icon">
+                <i class="fas fa-cog"></i>
+            </div>
+            <h3 class="font-bold text-lg">Manage Certificates</h3>
+            <p class="text-sm text-gray-600 mt-1">Edit/Delete certificates</p>
+            <span class="admin-badge">Admin</span>
+        </a>
+    </div>
+    {% endif %}
+
     <!-- Recent Activity Section with Tabs -->
     <div class="card">
         <h2 class="text-2xl font-bold text-[#003366] mb-6">Recent Activity</h2>
@@ -77,7 +357,7 @@
                 </div>
                 {% endfor %}
             {% else %}
-                <p class="text-gray-600">No projects yet.</p>
+                <p class="text-gray-600 text-center py-4">No projects yet.</p>
             {% endif %}
         </div>
         
@@ -98,7 +378,7 @@
                 </div>
                 {% endfor %}
             {% else %}
-                <p class="text-gray-600">No certificates yet.</p>
+                <p class="text-gray-600 text-center py-4">No certificates yet.</p>
             {% endif %}
         </div>
         
@@ -106,45 +386,43 @@
         <div id="messages-tab" class="tab-content hidden">
             {% if recent_messages %}
                 {% for msg in recent_messages %}
-                <div class="p-3 {% if not msg.is_read %}bg-yellow-50{% else %}bg-gray-50{% endif %} rounded-lg mb-2">
-                    <div class="flex justify-between items-start">
-                        <div class="flex-1">
-                            <div class="flex items-center gap-2">
-                                <h3 class="font-semibold text-[#003366]">{{ msg.name }}</h3>
-                                <span class="text-sm text-gray-500">{{ msg.email }}</span>
-                                {% if not msg.is_read %}
-                                <span class="bg-red-500 text-white text-xs px-2 py-1 rounded">New</span>
-                                {% endif %}
-                            </div>
-                            <p class="text-sm text-gray-600 mt-1">{{ msg.message|truncatechars:100 }}</p>
-                            <p class="text-xs text-gray-400 mt-1">{{ msg.timestamp|date:"M d, Y H:i" }}</p>
-                        </div>
-                        {% if user.is_staff %}
-                        <div class="flex gap-2 ml-4">
-                            {% if not msg.is_read %}
-                            <a href="{% url 'accounts:mark_message_read' msg.id %}" class="text-green-600 hover:text-green-800" title="Mark as read">
-                                <i class="fas fa-check-circle"></i>
-                            </a>
-                            {% endif %}
-                            <a href="{% url 'admin:contact_app_contactmessage_change' msg.id %}" class="text-[#003366] hover:text-blue-600" title="View details">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                        </div>
-                        {% endif %}
+                <div class="message-item">
+                    <div class="message-avatar">
+                        {{ msg.name|first|upper }}
                     </div>
+                    <div class="message-content">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="message-name">{{ msg.name }}</span>
+                                <span class="message-email">{{ msg.email }}</span>
+                            </div>
+                            {% if not msg.is_read %}
+                            <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">New</span>
+                            {% endif %}
+                        </div>
+                        <div class="message-text">{{ msg.message|truncatechars:100 }}</div>
+                        <div class="message-time">{{ msg.timestamp|date:"M d, Y H:i" }}</div>
+                    </div>
+                    {% if user.is_staff %}
+                    <a href="{% url 'admin:contact_app_contactmessage_change' msg.id %}" 
+                       class="text-[#003366] hover:text-blue-600"
+                       title="View in Admin">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    {% endif %}
                 </div>
                 {% endfor %}
             {% else %}
-                <p class="text-gray-600">No messages yet.</p>
+                <p class="text-gray-600 text-center py-4">No messages yet.</p>
             {% endif %}
         </div>
         
-        <!-- View All Links -->
+        <!-- View All Links - Only for staff -->
         {% if user.is_staff %}
         <div class="mt-6 pt-4 border-t border-gray-200 flex justify-end gap-4">
-            <a href="{% url 'accounts:manage_projects' %}" class="text-[#003366] hover:underline text-sm">View All Projects →</a>
-            <a href="{% url 'accounts:manage_certificates' %}" class="text-[#003366] hover:underline text-sm">View All Certificates →</a>
-            <a href="{% url 'accounts:manage_messages' %}" class="text-[#003366] hover:underline text-sm">View All Messages →</a>
+            <a href="{% url 'admin:projects_app_project_changelist' %}" class="text-[#003366] hover:underline text-sm">View All Projects →</a>
+            <a href="{% url 'admin:projects_app_certificate_changelist' %}" class="text-[#003366] hover:underline text-sm">View All Certificates →</a>
+            <a href="{% url 'admin:contact_app_contactmessage_changelist' %}" class="text-[#003366] hover:underline text-sm">View All Messages →</a>
         </div>
         {% endif %}
     </div>
@@ -177,55 +455,4 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('projects-tab').classList.remove('hidden');
 });
 </script>
-
-<style>
-/* Smooth transitions */
-.tab-button {
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.tab-content {
-    transition: opacity 0.3s ease;
-}
-
-/* Card hover effects */
-.card {
-    transition: all 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 51, 102, 0.15);
-}
-
-/* Message item hover */
-.bg-yellow-50:hover, .bg-gray-50:hover {
-    filter: brightness(0.98);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .flex.justify-between.items-center.mb-8 {
-        flex-direction: column;
-        align-items: start;
-        gap: 0.5rem;
-    }
-    
-    .grid.md\:grid-cols-4 {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .tab-button {
-        font-size: 0.9rem;
-        padding: 0.5rem 0.75rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .grid.md\:grid-cols-4 {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
 {% endblock %}

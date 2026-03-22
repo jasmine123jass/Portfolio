@@ -13,44 +13,37 @@
 
 <div id="main-content">
     <!-- Hero Section with Profile Image -->
-    <section class="container mx-auto px-4 py-12">
+    <section id="home" class="container mx-auto px-4 py-12 scroll-mt-20">
         <div class="grid md:grid-cols-2 gap-12 items-center">
             <div class="card">
                 <h1 class="text-5xl md:text-6xl font-bold text-[#003366] mb-4">
                     Hi, I'm <span class="text-blue-600">Srujitha Jasmine</span>
                 </h1>
                 <h2 class="text-2xl md:text-3xl text-blue-800 mb-6">
-                    AI-ML Engineer
+                    CSE Student | AI-ML 
                 </h2>
                 <p class="text-gray-700 text-lg mb-8 leading-relaxed">
-                    Ambitious Computer Science student with a strong foundation in problem-solving, analytical reasoning, and adaptable learning. Deeply interested in Artificial Intelligence, data-driven technologies, and scalable software systems.
-                    Dedicated to building efficient, reliable, and intelligent solutions that drive innovation and meaningful impact.
+                    I am a passionate Computer Science undergraduate specializing in Artificial Intelligence and Machine Learning at Lovely Professional University. 
+                    I have a strong foundation in programming and data structures, with hands-on experience in Python, Java, and web technologies.
+                    I am a quick learner, adaptable, and highly motivated to contribute to innovative projects in AI/ML and software engineering.
                 </p>
                 
                 <div class="flex flex-wrap gap-4 mb-8">
-                    <a href="{% url 'projects:project_list' %}" class="btn-primary">
-                        <i class="fas fa-project-diagram mr-2"></i>View Projects
-                    </a>
-                    <a href="{% url 'contact:contact' %}" class="btn-outline">
-                        <i class="fas fa-paper-plane mr-2"></i>Contact Me
-                    </a>
                     <a href="{% static 'cv/Srujitha_Jasmine_Baggam_CV.pdf' %}" download class="btn-outline">
                         <i class="fas fa-download mr-2"></i>Download CV
                     </a>
                 </div>
                 
                 <!-- Stats -->
-                <div class="grid grid-cols-4 gap-4 text-center">
-                
+                <div class="grid grid-cols-2 gap-4 text-center">
                     <div class="p-4 bg-blue-50 rounded-lg">
-                        <div class="text-3xl font-bold text-[#003366]">10+</div>
+                        <div class="text-3xl font-bold text-[#003366]">5+</div>
                         <div class="text-sm text-gray-600">Projects</div>
                     </div>
                     <div class="p-4 bg-blue-50 rounded-lg">
                         <div class="text-3xl font-bold text-[#003366]">5+</div>
-                        <div class="text-sm text-gray-600">Certifications</div>
+                        <div class="text-sm text-gray-600">Technical Skills</div>
                     </div>
-                   
                 </div>
             </div>
 
@@ -70,200 +63,199 @@
     </section>
 
     <!-- Technical Skills Section -->
-   
-<section class="container mx-auto px-4 py-16">
-    <h2 class="text-4xl font-bold text-center text-[#003366] mb-12">
-        <span class="text-blue-600">< ></span> Technical Skills
-    </h2>
-    
-    <!-- Skills Categories -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-        <!-- Languages -->
-        <div class="card">
-            <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 bg-[#003366] rounded-lg flex items-center justify-center">
-                    <i class="fas fa-code text-white"></i>
+    <section id="skills" class="container mx-auto px-4 py-16 scroll-mt-20">
+        <h2 class="text-4xl font-bold text-center text-[#003366] mb-12">
+            <span class="text-blue-600">< ></span> Technical Skills
+        </h2>
+        
+        <!-- Skills Categories -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <!-- Languages -->
+            <div class="card">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-[#003366] rounded-lg flex items-center justify-center">
+                        <i class="fas fa-code text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#003366]">Languages</h3>
                 </div>
-                <h3 class="text-xl font-bold text-[#003366]">Languages</h3>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">Python (Advanced)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">Java (Intermediate)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">SQL (Advanced)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">JavaScript (Intermediate)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">HTML/CSS (Advanced)</span>
+                    </div>
+                </div>
             </div>
-            <div class="space-y-2">
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">Python (Advanced)</span>
+            
+            <!-- Frameworks -->
+            <div class="card">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-[#003366] rounded-lg flex items-center justify-center">
+                        <i class="fas fa-layer-group text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#003366]">Frameworks</h3>
                 </div>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">Java (Intermediate)</span>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">Django (Advanced)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">TensorFlow (Intermediate)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">PyTorch (Intermediate)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">Scikit-learn (Advanced)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">Pandas/NumPy (Advanced)</span>
+                    </div>
                 </div>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">SQL (Advanced)</span>
+            </div>
+            
+            <!-- AI/ML Specializations -->
+            <div class="card">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-[#003366] rounded-lg flex items-center justify-center">
+                        <i class="fas fa-brain text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#003366]">AI/ML</h3>
                 </div>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">JavaScript (Intermediate)</span>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">Deep Learning</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">Natural Language Processing</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">Transformers & LLMs</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">Computer Vision</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">Generative AI</span>
+                    </div>
                 </div>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">HTML/CSS (Advanced)</span>
+            </div>
+            
+            <!-- Dev Tools -->
+            <div class="card">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-[#003366] rounded-lg flex items-center justify-center">
+                        <i class="fas fa-tools text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#003366]">Dev Tools</h3>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">Git & GitHub</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">Docker</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">PostgreSQL</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">VS Code</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
+                        <span class="text-gray-600">Jupyter Notebook</span>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <!-- Frameworks -->
-        <div class="card">
-            <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 bg-[#003366] rounded-lg flex items-center justify-center">
-                    <i class="fas fa-layer-group text-white"></i>
-                </div>
-                <h3 class="text-xl font-bold text-[#003366]">Frameworks</h3>
-            </div>
-            <div class="space-y-2">
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">Django (Advanced)</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">TensorFlow (Intermediate)</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">PyTorch (Intermediate)</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">Scikit-learn (Advanced)</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">Pandas/NumPy (Advanced)</span>
-                </div>
+        <!-- Skill Clouds - Visual Representation -->
+        <div class="mt-12">
+            <h3 class="text-2xl font-bold text-center text-[#003366] mb-8">Skill Proficiency</h3>
+            <div class="flex flex-wrap justify-center gap-3">
+                <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.2rem;">Python</span>
+                <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.1rem;">Django</span>
+                <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.3rem;">Machine Learning</span>
+                <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.1rem;">Deep Learning</span>
+                <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.0rem;">NLP</span>
+                <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.2rem;">SQL</span>
+                <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.0rem;">Java</span>
+                <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 0.9rem;">JavaScript</span>
+                <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.1rem;">TensorFlow</span>
+                <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.0rem;">PyTorch</span>
+                <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.1rem;">Pandas</span>
+                <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.0rem;">Docker</span>
+                <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.2rem;">Git</span>
+                <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 0.9rem;">PostgreSQL</span>
             </div>
         </div>
         
-        <!-- AI/ML Specializations -->
-        <div class="card">
-            <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 bg-[#003366] rounded-lg flex items-center justify-center">
-                    <i class="fas fa-brain text-white"></i>
-                </div>
-                <h3 class="text-xl font-bold text-[#003366]">AI/ML</h3>
-            </div>
-            <div class="space-y-2">
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">Deep Learning</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">Natural Language Processing</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">Transformers & LLMs</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">Computer Vision</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">Generative AI</span>
+        <!-- Core Concepts -->
+        <div class="mt-12 grid md:grid-cols-2 gap-6">
+            <div class="card">
+                <h3 class="text-xl font-bold text-[#003366] mb-4 flex items-center gap-2">
+                    <i class="fas fa-microchip"></i>
+                    Core CS Concepts
+                </h3>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Data Structures</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Algorithms</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">OOPs</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">DBMS</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Operating Systems</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Computer Architecture</span>
                 </div>
             </div>
-        </div>
-        
-        <!-- Dev Tools -->
-        <div class="card">
-            <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 bg-[#003366] rounded-lg flex items-center justify-center">
-                    <i class="fas fa-tools text-white"></i>
-                </div>
-                <h3 class="text-xl font-bold text-[#003366]">Dev Tools</h3>
-            </div>
-            <div class="space-y-2">
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">Git & GitHub</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">Docker</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">PostgreSQL</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">VS Code</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-[#003366] rounded-full"></span>
-                    <span class="text-gray-600">Jupyter Notebook</span>
+            
+            <div class="card">
+                <h3 class="text-xl font-bold text-[#003366] mb-4 flex items-center gap-2">
+                    <i class="fas fa-heart"></i>
+                    Soft Skills
+                </h3>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Problem Solving</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Teamwork</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Collaboration</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Adaptability</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Communication</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Time Management</span>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Skill Clouds - Visual Representation -->
-    <div class="mt-12">
-        <h3 class="text-2xl font-bold text-center text-[#003366] mb-8">Skill Proficiency</h3>
-        <div class="flex flex-wrap justify-center gap-3">
-            <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.2rem;">Python</span>
-            <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.1rem;">Django</span>
-            <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.3rem;">Machine Learning</span>
-            <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.1rem;">Deep Learning</span>
-            <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.0rem;">NLP</span>
-            <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.2rem;">SQL</span>
-            <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.0rem;">Java</span>
-            <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 0.9rem;">JavaScript</span>
-            <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.1rem;">TensorFlow</span>
-            <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.0rem;">PyTorch</span>
-            <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.1rem;">Pandas</span>
-            <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.0rem;">Docker</span>
-            <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 1.2rem;">Git</span>
-            <span class="px-4 py-2 bg-blue-100 text-[#003366] rounded-full text-sm font-medium hover:scale-110 transition-transform cursor-default" style="font-size: 0.9rem;">PostgreSQL</span>
-        </div>
-    </div>
-    
-    <!-- Core Concepts -->
-    <div class="mt-12 grid md:grid-cols-2 gap-6">
-        <div class="card">
-            <h3 class="text-xl font-bold text-[#003366] mb-4 flex items-center gap-2">
-                <i class="fas fa-microchip"></i>
-                Core CS Concepts
-            </h3>
-            <div class="flex flex-wrap gap-2">
-                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Data Structures</span>
-                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Algorithms</span>
-                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">OOPs</span>
-                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">DBMS</span>
-                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Operating Systems</span>
-                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Computer Architecture</span>
-            </div>
-        </div>
-        
-        <div class="card">
-            <h3 class="text-xl font-bold text-[#003366] mb-4 flex items-center gap-2">
-                <i class="fas fa-heart"></i>
-                Soft Skills
-            </h3>
-            <div class="flex flex-wrap gap-2">
-                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Problem Solving</span>
-                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Teamwork</span>
-                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Collaboration</span>
-                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Adaptability</span>
-                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Communication</span>
-                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Time Management</span>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
     <!-- Featured Projects Section (Only 3) -->
-    <section class="container mx-auto px-4 py-16">
+    <section id="projects" class="container mx-auto px-4 py-16 scroll-mt-20">
         <h2 class="text-4xl font-bold text-center text-[#003366] mb-12">
             <i class="fas fa-project-diagram mr-3"></i>Featured Projects
         </h2>
@@ -332,7 +324,7 @@
     </section>
 
     <!-- Featured Certificates Section (Only 3) -->
-    <section id="certificates" class="container mx-auto px-4 py-16">
+    <section id="certificates" class="container mx-auto px-4 py-16 scroll-mt-20">
         <h2 class="text-4xl font-bold text-center text-[#003366] mb-12">
             <i class="fas fa-certificate mr-3"></i>Featured Certifications
         </h2>
@@ -362,219 +354,216 @@
     </section>
 
     <!-- Education Section -->
-    <!-- Education Section - Unique Vertical Timeline -->
-<section class="container mx-auto px-4 py-16">
-    <h2 class="text-4xl font-bold text-center text-[#003366] mb-12">
-        <i class="fas fa-graduation-cap mr-3"></i>Education Journey
-    </h2>
+    <section id="education" class="container mx-auto px-4 py-16 scroll-mt-20">
+        <h2 class="text-4xl font-bold text-center text-[#003366] mb-12">
+            <i class="fas fa-graduation-cap mr-3"></i>Education Journey
+        </h2>
+        
+        <div class="max-w-4xl mx-auto relative">
+            <!-- Vertical Line -->
+            <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-[#003366] to-blue-300 rounded-full"></div>
+            
+            <!-- Education Item 1 - B.Tech (Right side) -->
+            <div class="relative flex items-center mb-12">
+                <div class="w-1/2 pr-12 text-right">
+                    <div class="inline-block bg-[#003366] text-white px-6 py-2 rounded-full font-bold shadow-lg">
+                        2022 - 2027(expected)
+                    </div>
+                </div>
+                <div class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#003366] rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center text-white text-xs font-bold">
+                    <i class="fas fa-graduation-cap text-sm"></i>
+                </div>
+                <div class="w-1/2 pl-12">
+                    <div class="card relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-[#003366] opacity-5 rounded-full -mr-8 -mt-8 group-hover:scale-150 transition-transform duration-500"></div>
+                        <h3 class="text-2xl font-bold text-[#003366] mb-2">Bachelor of Technology (B.Tech)</h3>
+                        <p class="text-blue-600 font-semibold mb-2">Computer Science, AI/ML Specialization</p>
+                        <p class="text-gray-600 mb-2"><i class="fas fa-map-marker-alt mr-2 text-[#003366]"></i>Lovely Professional University, Punjab</p>
+                        <div class="flex items-center text-gray-500 text-sm mb-3">
+                            <i class="far fa-calendar-alt mr-2 text-[#003366]"></i>2022 - 2027 (Expected)
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            <span class="bg-blue-100 text-[#003366] px-3 py-1 rounded-full text-xs font-medium">Machine Learning</span>
+                            <span class="bg-blue-100 text-[#003366] px-3 py-1 rounded-full text-xs font-medium">Deep Learning</span>
+                            <span class="bg-blue-100 text-[#003366] px-3 py-1 rounded-full text-xs font-medium">NLP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Education Item 2 - Intermediate (Left side) -->
+            <div class="relative flex items-center mb-12">
+                <div class="w-1/2 pr-12 text-right">
+                    <div class="card relative overflow-hidden group">
+                        <div class="absolute top-0 left-0 w-24 h-24 bg-[#003366] opacity-5 rounded-full -ml-8 -mt-8 group-hover:scale-150 transition-transform duration-500"></div>
+                        <h3 class="text-2xl font-bold text-[#003366] mb-2">Intermediate (Science)</h3>
+                        <p class="text-green-600 font-semibold mb-2">Percentage: 85%</p>
+                        <p class="text-gray-600 mb-2"><i class="fas fa-map-marker-alt mr-2 text-[#003366]"></i>SriChaitanya Junior College, Visakhapatnam</p>
+                        <div class="flex items-center text-gray-500 text-sm">
+                            <i class="far fa-calendar-alt mr-2 text-[#003366]"></i>2020 - 2022
+                        </div>
+                        <div class="mt-3 inline-block bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-medium">
+                            MPC Stream
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-green-500 rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center text-white text-xs font-bold">
+                    <i class="fas fa-school text-sm"></i>
+                </div>
+                <div class="w-1/2 pl-12">
+                    <div class="inline-block bg-green-500 text-white px-6 py-2 rounded-full font-bold shadow-lg">
+                        2020 - 2022
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Education Item 3 - 10th Grade (Right side) -->
+            <div class="relative flex items-center">
+                <div class="w-1/2 pr-12 text-right">
+                    <div class="inline-block bg-purple-500 text-white px-6 py-2 rounded-full font-bold shadow-lg">
+                        2019 - 2020
+                    </div>
+                </div>
+                <div class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-purple-500 rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center text-white text-xs font-bold">
+                    <i class="fas fa-book-open text-sm"></i>
+                </div>
+                <div class="w-1/2 pl-12">
+                    <div class="card relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-purple-500 opacity-5 rounded-full -mr-8 -mt-8 group-hover:scale-150 transition-transform duration-500"></div>
+                        <h3 class="text-2xl font-bold text-[#003366] mb-2">Secondary Education (10th Grade)</h3>
+                        <p class="text-purple-600 font-semibold mb-2">CGPA: 9.3/10</p>
+                        <p class="text-gray-600 mb-2"><i class="fas fa-map-marker-alt mr-2 text-[#003366]"></i>Mahathi High School, Visakhapatnam</p>
+                        <div class="flex items-center text-gray-500 text-sm">
+                            <i class="far fa-calendar-alt mr-2 text-[#003366]"></i>2019 - 2020
+                        </div>
+                        <div class="mt-3 inline-block bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-medium">
+                            SSC Board
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     
-    <div class="max-w-4xl mx-auto relative">
-        <!-- Vertical Line -->
-        <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-[#003366] to-blue-300 rounded-full"></div>
-        
-        <!-- Education Item 1 - B.Tech (Right side) -->
-        <div class="relative flex items-center mb-12">
-            <div class="w-1/2 pr-12 text-right">
-                <div class="inline-block bg-[#003366] text-white px-6 py-2 rounded-full font-bold shadow-lg">
-                    2022 - 2026
-                </div>
-            </div>
-            <div class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#003366] rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center text-white text-xs font-bold">
-                <i class="fas fa-graduation-cap text-sm"></i>
-            </div>
-            <div class="w-1/2 pl-12">
-                <div class="card relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-[#003366] opacity-5 rounded-full -mr-8 -mt-8 group-hover:scale-150 transition-transform duration-500"></div>
-                    <h3 class="text-2xl font-bold text-[#003366] mb-2">Bachelor of Technology (B.Tech)</h3>
-                    <p class="text-blue-600 font-semibold mb-2">Computer Science, AI/ML Specialization</p>
-                    <p class="text-gray-600 mb-2"><i class="fas fa-map-marker-alt mr-2 text-[#003366]"></i>Lovely Professional University, Punjab</p>
-                    <div class="flex items-center text-gray-500 text-sm mb-3">
-                        <i class="far fa-calendar-alt mr-2 text-[#003366]"></i>2022 - 2027 (Expected)
-                    </div>
-                    <div class="flex flex-wrap gap-2 mt-3">
-                        <span class="bg-blue-100 text-[#003366] px-3 py-1 rounded-full text-xs font-medium">Machine Learning</span>
-                        <span class="bg-blue-100 text-[#003366] px-3 py-1 rounded-full text-xs font-medium">Deep Learning</span>
-                        <span class="bg-blue-100 text-[#003366] px-3 py-1 rounded-full text-xs font-medium">NLP</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Education Item 2 - Intermediate (Left side) -->
-        <div class="relative flex items-center mb-12">
-            <div class="w-1/2 pr-12 text-right">
-                <div class="card relative overflow-hidden group">
-                    <div class="absolute top-0 left-0 w-24 h-24 bg-[#003366] opacity-5 rounded-full -ml-8 -mt-8 group-hover:scale-150 transition-transform duration-500"></div>
-                    <h3 class="text-2xl font-bold text-[#003366] mb-2">Intermediate (Science)</h3>
-                    <p class="text-green-600 font-semibold mb-2">Percentage: 85%</p>
-                    <p class="text-gray-600 mb-2"><i class="fas fa-map-marker-alt mr-2 text-[#003366]"></i>SriChaitanya Junior College, Visakhapatnam</p>
-                    <div class="flex items-center text-gray-500 text-sm">
-                        <i class="far fa-calendar-alt mr-2 text-[#003366]"></i>2020 - 2022
-                    </div>
-                    <div class="mt-3 inline-block bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-medium">
-                        MPC Stream
-                    </div>
-                </div>
-            </div>
-            <div class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-green-500 rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center text-white text-xs font-bold">
-                <i class="fas fa-school text-sm"></i>
-            </div>
-            <div class="w-1/2 pl-12">
-                <div class="inline-block bg-green-500 text-white px-6 py-2 rounded-full font-bold shadow-lg">
-                    2020 - 2022
-                </div>
-            </div>
-        </div>
-        
-        <!-- Education Item 3 - 10th Grade (Right side) -->
-        <div class="relative flex items-center">
-            <div class="w-1/2 pr-12 text-right">
-                <div class="inline-block bg-purple-500 text-white px-6 py-2 rounded-full font-bold shadow-lg">
-                    2019 - 2020
-                </div>
-            </div>
-            <div class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-purple-500 rounded-full border-4 border-white shadow-lg z-10 flex items-center justify-center text-white text-xs font-bold">
-                <i class="fas fa-book-open text-sm"></i>
-            </div>
-            <div class="w-1/2 pl-12">
-                <div class="card relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-purple-500 opacity-5 rounded-full -mr-8 -mt-8 group-hover:scale-150 transition-transform duration-500"></div>
-                    <h3 class="text-2xl font-bold text-[#003366] mb-2">Secondary Education (10th Grade)</h3>
-                    <p class="text-purple-600 font-semibold mb-2">CGPA: 9.3/10</p>
-                    <p class="text-gray-600 mb-2"><i class="fas fa-map-marker-alt mr-2 text-[#003366]"></i>Mahathi High School, Visakhapatnam</p>
-                    <div class="flex items-center text-gray-500 text-sm">
-                        <i class="far fa-calendar-alt mr-2 text-[#003366]"></i>2019 - 2020
-                    </div>
-                    <div class="mt-3 inline-block bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-medium">
-                        SSC Board
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
     <!-- Extracurricular Activities -->
-    
-<section class="container mx-auto px-4 py-16">
-    <h2 class="text-4xl font-bold text-center text-[#003366] mb-12">
-        <i class="fas fa-users mr-3"></i>Extracurricular Activities
-    </h2>
-    
-    <div class="grid md:grid-cols-3 gap-6">
-        <!-- NGO Volunteer -->
-        <div class="card hover:scale-105 transition-transform">
-            <div class="text-4xl text-[#003366] mb-4">
-                <i class="fas fa-leaf"></i>
-            </div>
-            <h3 class="font-bold text-xl text-[#003366] mb-2">NGO Volunteer</h3>
-            <p class="text-blue-600 font-semibold">Aasaya Youth Association</p>
-            <p class="text-gray-600 text-sm mb-2">Since August 2023</p>
-            <p class="text-gray-600">Participated in plantation drives, women's empowerment campaigns, education activities, food distribution, and cleanliness drives in rural areas.</p>
-        </div>
+    <section id="activities" class="container mx-auto px-4 py-16 scroll-mt-20">
+        <h2 class="text-4xl font-bold text-center text-[#003366] mb-12">
+            <i class="fas fa-users mr-3"></i>Extracurricular Activities
+        </h2>
         
-        <!-- Hackathon Participation -->
-        <div class="card hover:scale-105 transition-transform">
-            <div class="text-4xl text-[#003366] mb-4">
-                <i class="fas fa-trophy"></i>
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- NGO Volunteer -->
+            <div class="card hover:scale-105 transition-transform">
+                <div class="text-4xl text-[#003366] mb-4">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3 class="font-bold text-xl text-[#003366] mb-2">NGO Volunteer</h3>
+                <p class="text-blue-600 font-semibold">Aasaya Youth Association</p>
+                <p class="text-gray-600 text-sm mb-2">Since August 2023</p>
+                <p class="text-gray-600">Participated in plantation drives, women's empowerment campaigns, education activities, food distribution, and cleanliness drives in rural areas.</p>
             </div>
-            <h3 class="font-bold text-xl text-[#003366] mb-2">Hackathon Participation</h3>
-            <ul class="text-gray-600 space-y-1">
-                <li>• Flipkart Runway Season 5</li>
-                <li>• Myntra (Trend. Set. Go.)</li>
-                <li>• Tata Imagination Challenge</li>
-                <li>• Tata Crucible Challenge</li>
-                <li>• University-level Hackathons</li>
-            </ul>
+            
+            <!-- Hackathon Participation -->
+            <div class="card hover:scale-105 transition-transform">
+                <div class="text-4xl text-[#003366] mb-4">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3 class="font-bold text-xl text-[#003366] mb-2">Hackathon Participation</h3>
+                <ul class="text-gray-600 space-y-1">
+                    <li>• Flipkart Runway Season 5</li>
+                    <li>• Myntra (Trend. Set. Go.)</li>
+                    <li>• Tata Imagination Challenge</li>
+                    <li>• Tata Crucible Challenge</li>
+                    <li>• University-level Hackathons</li>
+                </ul>
+            </div>
+            
+            <!-- Coding Profiles -->
+            <div class="card hover:scale-105 transition-transform">
+                <div class="text-4xl text-[#003366] mb-4">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 class="font-bold text-xl text-[#003366] mb-2">Coding Profiles</h3>
+                
+                <!-- LeetCode Profile -->
+                <div class="mb-4 p-3 bg-yellow-50 rounded-lg">
+                    <div class="flex items-center gap-2 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#ffa116">
+                            <path d="M22 14.355c0-.742-.564-1.346-1.26-1.346H10.676c-.696 0-1.26.604-1.26 1.346s.563 1.346 1.26 1.346H20.74c.696.001 1.26-.603 1.26-1.346z"/>
+                            <path d="M3.482 18.187l4.313 4.361c.973.979 2.318 1.452 3.803 1.452 1.485 0 2.83-.512 3.784-1.452.954-.94 1.537-2.287 1.537-3.784 0-1.498-.583-2.807-1.537-3.747l-2.643-2.642 2.643-2.642c.954-.94 1.537-2.249 1.537-3.747 0-1.497-.583-2.844-1.537-3.784-.954-.94-2.299-1.452-3.784-1.452-1.485 0-2.83.512-3.803 1.452L3.482 8.265v10.484z"/>
+                        </svg>
+                        <span class="font-semibold text-[#003366]">LeetCode:</span>
+                    </div>
+                    <a href="https://leetcode.com/u/Sruji_28/" target="_blank" 
+                       class="text-blue-600 hover:underline flex items-center gap-1 ml-7 text-sm">
+                        @Sruji_28 
+                        <i class="fas fa-external-link-alt text-xs"></i>
+                    </a>
+                    <div class="mt-2 space-y-1">
+                        <p class="text-sm text-gray-600 flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                            150+ problems solved
+                        </p>
+                        <p class="text-sm text-gray-600 flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                            Weekly contests
+                        </p>
+                        <p class="text-sm text-gray-600 flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span>
+                            DSA focused
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- HackerRank Profile -->
+                <div class="mb-4 p-3 bg-green-50 rounded-lg">
+                    <div class="flex items-center gap-2 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#2ec866">
+                            <path d="M12 0C5.373 0 0 5.373 0 12c0 5.623 3.872 10.328 9.092 11.63.563.093.766-.249.766-.55 0-.276-.01-1.009-.015-1.98-3.052.664-3.696-1.468-3.696-1.468-.497-1.265-1.214-1.602-1.214-1.602-.995-.68.074-.666.074-.666 1.1.077 1.68 1.13 1.68 1.13.976 1.674 2.56 1.19 3.184.91.097-.707.382-1.19.694-1.463-2.426-.276-4.98-1.213-4.98-5.398 0-1.192.426-2.167 1.124-2.93-.113-.277-.487-1.388.105-2.89 0 0 .917-.295 3.005 1.12.87-.242 1.804-.364 2.73-.368.926.004 1.86.126 2.73.368 2.09-1.415 3.005-1.12 3.005-1.12.592 1.502.218 2.613.105 2.89.698.763 1.124 1.738 1.124 2.93 0 4.192-2.558 5.118-4.99 5.388.392.338.742 1.003.742 2.022 0 1.46-.013 2.635-.013 2.994 0 .294.198.637.77.55C20.126 22.33 24 17.62 24 12c0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        <span class="font-semibold text-[#003366]">HackerRank:</span>
+                    </div>
+                    <a href="https://www.hackerrank.com/profile/srujithajasmineb" target="_blank" 
+                       class="text-blue-600 hover:underline flex items-center gap-1 ml-7 text-sm">
+                        @srujithajasmineb 
+                        <i class="fas fa-external-link-alt text-xs"></i>
+                    </a>
+                    <div class="mt-2 space-y-1">
+                        <p class="text-sm text-gray-600 flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>
+                            5⭐ Python
+                        </p>
+                        <p class="text-sm text-gray-600 flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                            3⭐ Problem Solving
+                        </p>
+                        <p class="text-sm text-gray-600 flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span>
+                            Gold Badge
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Coding Stats -->
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <p class="text-sm text-gray-600 flex items-center gap-2">
+                        <i class="fas fa-fire text-orange-500"></i>
+                        <span class="font-semibold">Daily streak maintained</span>
+                    </p>
+                    <p class="text-sm text-gray-600 flex items-center gap-2 mt-1">
+                        <i class="fas fa-certificate text-[#003366]"></i>
+                        <span>5+ coding certifications</span>
+                    </p>
+                    <p class="text-sm text-gray-600 flex items-center gap-2 mt-1">
+                        <i class="fas fa-calendar-check text-green-600"></i>
+                        <span>Weekly contest participant</span>
+                    </p>
+                </div>
+            </div>
         </div>
-        
-        <!-- Coding Profiles -->
-        <div class="card hover:scale-105 transition-transform">
-            <div class="text-4xl text-[#003366] mb-4">
-                <i class="fas fa-code"></i>
-            </div>
-            <h3 class="font-bold text-xl text-[#003366] mb-2">Coding Profiles</h3>
-            
-            <!-- LeetCode Profile -->
-            <div class="mb-4 p-3 bg-yellow-50 rounded-lg">
-                <div class="flex items-center gap-2 mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#ffa116">
-                        <path d="M22 14.355c0-.742-.564-1.346-1.26-1.346H10.676c-.696 0-1.26.604-1.26 1.346s.563 1.346 1.26 1.346H20.74c.696.001 1.26-.603 1.26-1.346z"/>
-                        <path d="M3.482 18.187l4.313 4.361c.973.979 2.318 1.452 3.803 1.452 1.485 0 2.83-.512 3.784-1.452.954-.94 1.537-2.287 1.537-3.784 0-1.498-.583-2.807-1.537-3.747l-2.643-2.642 2.643-2.642c.954-.94 1.537-2.249 1.537-3.747 0-1.497-.583-2.844-1.537-3.784-.954-.94-2.299-1.452-3.784-1.452-1.485 0-2.83.512-3.803 1.452L3.482 8.265v10.484z"/>
-                    </svg>
-                    <span class="font-semibold text-[#003366]">LeetCode:</span>
-                </div>
-                <a href="https://leetcode.com/u/Sruji_28/" target="_blank" 
-                   class="text-blue-600 hover:underline flex items-center gap-1 ml-7 text-sm">
-                    @Sruji_28 
-                    <i class="fas fa-external-link-alt text-xs"></i>
-                </a>
-                <div class="mt-2 space-y-1">
-                    <p class="text-sm text-gray-600 flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                        150+ problems solved
-                    </p>
-                    <p class="text-sm text-gray-600 flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
-                        Weekly contests
-                    </p>
-                    <p class="text-sm text-gray-600 flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span>
-                        DSA focused
-                    </p>
-                </div>
-            </div>
-            
-            <!-- HackerRank Profile -->
-            <div class="mb-4 p-3 bg-green-50 rounded-lg">
-                <div class="flex items-center gap-2 mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#2ec866">
-                        <path d="M12 0C5.373 0 0 5.373 0 12c0 5.623 3.872 10.328 9.092 11.63.563.093.766-.249.766-.55 0-.276-.01-1.009-.015-1.98-3.052.664-3.696-1.468-3.696-1.468-.497-1.265-1.214-1.602-1.214-1.602-.995-.68.074-.666.074-.666 1.1.077 1.68 1.13 1.68 1.13.976 1.674 2.56 1.19 3.184.91.097-.707.382-1.19.694-1.463-2.426-.276-4.98-1.213-4.98-5.398 0-1.192.426-2.167 1.124-2.93-.113-.277-.487-1.388.105-2.89 0 0 .917-.295 3.005 1.12.87-.242 1.804-.364 2.73-.368.926.004 1.86.126 2.73.368 2.09-1.415 3.005-1.12 3.005-1.12.592 1.502.218 2.613.105 2.89.698.763 1.124 1.738 1.124 2.93 0 4.192-2.558 5.118-4.99 5.388.392.338.742 1.003.742 2.022 0 1.46-.013 2.635-.013 2.994 0 .294.198.637.77.55C20.126 22.33 24 17.62 24 12c0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                    <span class="font-semibold text-[#003366]">HackerRank:</span>
-                </div>
-                <a href="https://www.hackerrank.com/profile/srujithajasmineb" target="_blank" 
-                   class="text-blue-600 hover:underline flex items-center gap-1 ml-7 text-sm">
-                    @srujithajasmineb 
-                    <i class="fas fa-external-link-alt text-xs"></i>
-                </a>
-                <div class="mt-2 space-y-1">
-                    <p class="text-sm text-gray-600 flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>
-                        5⭐ Python
-                    </p>
-                    <p class="text-sm text-gray-600 flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
-                        3⭐ Problem Solving
-                    </p>
-                    <p class="text-sm text-gray-600 flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span>
-                        Gold Badge
-                    </p>
-                </div>
-            </div>
-            
-            <!-- Coding Stats -->
-            <div class="mt-4 pt-4 border-t border-gray-200">
-                <p class="text-sm text-gray-600 flex items-center gap-2">
-                    <i class="fas fa-fire text-orange-500"></i>
-                    <span class="font-semibold">Daily streak maintained</span>
-                </p>
-                <p class="text-sm text-gray-600 flex items-center gap-2 mt-1">
-                    <i class="fas fa-certificate text-[#003366]"></i>
-                    <span>5+ coding certifications</span>
-                </p>
-                <p class="text-sm text-gray-600 flex items-center gap-2 mt-1">
-                    <i class="fas fa-calendar-check text-green-600"></i>
-                    <span>Weekly contest participant</span>
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
+</div>
 
-   
-            
-            
 <!-- Theme Toggle Script -->
 <script>
 function toggleTheme() {
@@ -758,6 +747,11 @@ document.addEventListener('DOMContentLoaded', function() {
         background-color: #003366;
         color: white;
         transform: translateY(-2px);
+    }
+    
+    /* Smooth scrolling offset for fixed navbar */
+    .scroll-mt-20 {
+        scroll-margin-top: 80px;
     }
 </style>
 {% endblock %}

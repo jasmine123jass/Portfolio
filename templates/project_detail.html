@@ -48,22 +48,7 @@
                     {% endfor %}
                 </div>
             </div>
-            
-            {% if user.is_staff %}
-            <div class="border-t border-gray-200 pt-6 mt-6">
-                <h3 class="text-lg font-semibold text-[#003366] mb-3">Admin Actions</h3>
-                <div class="flex gap-3">
-                    <a href="{% url 'projects:project_update' slug=project.slug %}" 
-                       class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
-                        <i class="fas fa-edit mr-2"></i>Edit
-                    </a>
-                    <a href="{% url 'projects:project_delete' slug=project.slug %}" 
-                       class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-                        <i class="fas fa-trash mr-2"></i>Delete
-                    </a>
-                </div>
-            </div>
-            {% endif %}
+           
         </div>
     </div>
 </div>

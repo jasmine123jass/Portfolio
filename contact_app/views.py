@@ -3,10 +3,9 @@ from django.contrib import messages
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
-from django.contrib.auth.decorators import login_required
 from .models import ContactMessage
 
-@login_required(login_url='accounts:login')
+# Contact page - PUBLIC, no login required
 def contact_view(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -93,11 +92,10 @@ def contact_view(request):
     
     return render(request, 'contact.html')
 
-# ===== ADD THIS MISSING FUNCTION =====
-@login_required(login_url='accounts:login')
+# Contact success page - PUBLIC
 def contact_success(request):
     """
-    Contact form success page
+    Contact form success page - shows after form submission
     """
     print("✅ Contact success page accessed")
     return render(request, 'contact_success.html')

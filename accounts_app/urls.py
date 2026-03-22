@@ -8,10 +8,10 @@ urlpatterns = [
     # User authentication
     path('signup/', views.signup_view, name='signup'),
     path('login/', views.login_view, name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('logout/', views.logout_view, name='logout'),
     
     # Admin portal login (separate)
-    path('admin/login/', views.admin_portal_login, name='admin_portal_login'),
+    path('admin/', views.admin_portal_login, name='admin_portal_login'),
     
     # Dashboards
     path('dashboard/', views.dashboard, name='dashboard'),

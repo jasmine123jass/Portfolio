@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - SJB Portfolio</title>
+    <title>SJB Admin Portal - Login</title>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -28,7 +28,7 @@
             padding: 20px;
         }
         
-        .login-container {
+        .admin-login-container {
             max-width: 450px;
             width: 100%;
             animation: slideUp 0.5s ease;
@@ -45,28 +45,47 @@
             }
         }
         
-        .login-card {
+        .admin-login-card {
             background: white;
             border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
         
-        .login-header {
+        .admin-header {
+            background: linear-gradient(135deg, #003366 0%, #1e4a7a 100%);
+            padding: 40px 30px;
             text-align: center;
-            margin-bottom: 30px;
         }
         
-        .login-header h2 {
+        .admin-header h1 {
+            color: white;
             font-size: 2rem;
             font-weight: 700;
-            color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         
-        .login-header p {
-            color: #666;
+        .admin-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+        }
+        
+        .admin-body {
+            padding: 40px 30px;
+        }
+        
+        .security-badge {
+            background: #e6f3ff;
+            color: #003366;
+            padding: 10px 15px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             font-size: 0.9rem;
+            margin-bottom: 25px;
+            width: 100%;
+            justify-content: center;
         }
         
         .form-group {
@@ -75,7 +94,7 @@
         
         .form-group label {
             display: block;
-            color: #333;
+            color: #003366;
             font-weight: 600;
             margin-bottom: 8px;
             font-size: 0.95rem;
@@ -90,7 +109,7 @@
             left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: #667eea;
+            color: #003366;
             font-size: 1.1rem;
         }
         
@@ -104,14 +123,14 @@
         }
         
         .input-group input:focus {
-            border-color: #667eea;
+            border-color: #003366;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
         }
         
-        .login-btn {
+        .admin-login-btn {
             width: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #003366 0%, #1e4a7a 100%);
             color: white;
             border: none;
             padding: 16px;
@@ -124,12 +143,12 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            margin-top: 20px;
+            margin-top: 10px;
         }
         
-        .login-btn:hover {
+        .admin-login-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 15px 30px rgba(0, 51, 102, 0.3);
         }
         
         .alert {
@@ -144,24 +163,20 @@
             gap: 10px;
         }
         
-        .alert i {
-            font-size: 1.2rem;
-        }
-        
         .alert.success {
             background: #e8f5e9;
             color: #2e7d32;
         }
         
-        .login-footer {
+        .admin-footer {
             text-align: center;
             margin-top: 25px;
             padding-top: 25px;
             border-top: 2px solid #eef2f6;
         }
         
-        .login-footer a {
-            color: #667eea;
+        .admin-footer a {
+            color: #003366;
             text-decoration: none;
             font-weight: 600;
             display: inline-flex;
@@ -170,106 +185,138 @@
             transition: all 0.3s ease;
         }
         
-        .login-footer a:hover {
-            color: #764ba2;
+        .admin-footer a:hover {
+            color: #1e4a7a;
             transform: translateX(-5px);
         }
         
-        .security-badge {
-            background: #f0f0f0;
-            color: #333;
-            padding: 8px 15px;
-            border-radius: 50px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            margin-bottom: 20px;
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
         }
         
-        .security-badge i {
-            color: #667eea;
+        .nav-link {
+            color: #003366;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover {
+            background: #e6f3ff;
+        }
+        
+        .view-portfolio {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #003366;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            margin-top: 15px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .view-portfolio:hover {
+            background: #003366;
+            color: white;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-card">
+    <div class="admin-login-container">
+        <div class="admin-login-card">
             <!-- Header -->
-            <div class="login-header">
-                <h2>Admin Login</h2>
-                <p>Secure Access • Authorized Personnel Only</p>
+            <div class="admin-header">
+                <h1>SJB Admin Portal</h1>
+                <p>Portfolio Management System</p>
             </div>
             
-            <!-- Security Badge -->
-            <div style="text-align: center;">
+            <!-- Body -->
+            <div class="admin-body">
+                <!-- Security Badge -->
                 <div class="security-badge">
                     <i class="fas fa-shield-alt"></i>
-                    <span>Admin Portal • Restricted Area</span>
+                    <span>Secure Admin Access • Authorized Personnel Only</span>
                 </div>
-            </div>
-            
-            <!-- Messages -->
-            {% if messages %}
-                {% for message in messages %}
-                <div class="alert {% if message.tags == 'success' %}success{% endif %}">
-                    <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %}"></i>
-                    {{ message }}
-                </div>
-                {% endfor %}
-            {% endif %}
-            
-            {% if form.errors %}
-            <div class="alert">
-                <i class="fas fa-exclamation-triangle"></i>
-                Invalid username or password. Please try again.
-            </div>
-            {% endif %}
-            
-            <!-- Login Form -->
-            <form method="post" action="{% url 'admin_portal_login' %}">
-                {% csrf_token %}
                 
-                <!-- Username Field -->
-                <div class="form-group">
-                    <label for="id_username">Username</label>
-                    <div class="input-group">
-                        <i class="fas fa-user"></i>
-                        <input type="text" name="username" id="id_username" 
-                               placeholder="Enter admin username" required 
-                               value="{{ form.username.value|default:'' }}">
+                <!-- Messages -->
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert {% if message.tags == 'success' %}success{% endif %}">
+                        <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %}"></i>
+                        {{ message }}
                     </div>
-                </div>
+                    {% endfor %}
+                {% endif %}
                 
-                <!-- Password Field -->
-                <div class="form-group">
-                    <label for="id_password">Password</label>
-                    <div class="input-group">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" name="password" id="id_password" 
-                               placeholder="Enter admin password" required>
+                {% if form.errors %}
+                <div class="alert">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Invalid username or password. Please try again.
+                </div>
+                {% endif %}
+                
+                <!-- Login Form -->
+                <form method="post" action="{% url 'admin_portal_login' %}">
+                    {% csrf_token %}
+                    
+                    <!-- Username Field -->
+                    <div class="form-group">
+                        <label for="id_username">Username</label>
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" name="username" id="id_username" 
+                                   placeholder="Enter your username" required 
+                                   value="{{ form.username.value|default:'' }}">
+                        </div>
                     </div>
+                    
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label for="id_password">Password</label>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" name="password" id="id_password" 
+                                   placeholder="Enter your password" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button type="submit" class="admin-login-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Log in
+                    </button>
+                </form>
+                
+                <!-- Navigation Links -->
+                <div class="nav-links">
+                    <a href="#" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <a href="#" class="nav-link"><i class="fas fa-project-diagram"></i> Projects</a>
+                    <a href="#" class="nav-link"><i class="fas fa-certificate"></i> Certificates</a>
+                    <a href="#" class="nav-link"><i class="fas fa-envelope"></i> Messages</a>
+                    <a href="#" class="nav-link"><i class="fas fa-user"></i> Profiles</a>
+                    <a href="#" class="nav-link"><i class="fas fa-users"></i> Users</a>
                 </div>
                 
-                <!-- Hidden next field -->
-                <input type="hidden" name="next" value="{{ next }}">
-                
-                <!-- Submit Button -->
-                <button type="submit" class="login-btn">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Access Admin Dashboard
-                </button>
-            </form>
-            
-            <!-- Footer -->
-            <div class="login-footer">
-                <p><i class="fas fa-lock" style="margin-right: 5px;"></i> Restricted Access • Administrators Only</p>
-                <p style="margin-top: 15px;">
-                    <a href="{% url 'login' %}">
-                        <i class="fas fa-arrow-left"></i>
-                        Back to Portfolio Login
+                <!-- View Portfolio Link -->
+                <div style="text-align: center;">
+                    <a href="{% url 'home' %}" class="view-portfolio" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        View Portfolio
                     </a>
-                </p>
+                </div>
+                
+                <!-- Footer -->
+                <div class="admin-footer">
+                    <p><i class="fas fa-lock" style="margin-right: 5px;"></i> Restricted Access • Administrators Only</p>
+                </div>
             </div>
         </div>
     </div>

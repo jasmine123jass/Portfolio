@@ -226,32 +226,21 @@
     <nav class="navbar fixed w-full z-50 top-0">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
-                <a href="/" class="text-2xl font-bold text-[#003366] hover:scale-105 transition transform">
+                <a href="{% url 'home' %}" class="text-2xl font-bold text-[#003366] hover:scale-105 transition transform">
                     <i class="fas fa-robot mr-2"></i>SJB Portfolio
                 </a>
                 
-                <!-- Desktop Menu - Admin Link REMOVED -->
+                <!-- Desktop Menu - Public Navigation (No Login) -->
                 <div class="hidden md:flex space-x-8 items-center">
-                    <a href="/" class="nav-link font-medium">Home</a>
+                    <a href="{% url 'home' %}#home" class="nav-link font-medium">Home</a>
+                    <a href="{% url 'home' %}#skills" class="nav-link font-medium">Skills</a>
+                    <a href="{% url 'home' %}#projects" class="nav-link font-medium">Projects</a>
+                    <a href="{% url 'home' %}#certificates" class="nav-link font-medium">Certificates</a>
+                    <a href="{% url 'home' %}#education" class="nav-link font-medium">Education</a>
+                    <a href="{% url 'home' %}#activities" class="nav-link font-medium">Activities</a>
                     <a href="{% url 'contact:contact' %}" class="nav-link font-medium">Contact</a>
                     
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'accounts:dashboard' %}" class="nav-link font-medium">
-                            <i class="fas fa-tachometer-alt mr-1"></i>Dashboard
-                        </a>
-                        <!-- ADMIN LINK REMOVED - Only Dashboard remains for logged in users -->
-                        
-                        <form method="post" action="{% url 'accounts:logout' %}" class="inline">
-                            {% csrf_token %}
-                            <button type="submit" class="btn-outline text-sm py-2 px-4">
-                                <i class="fas fa-sign-out-alt mr-1"></i>Logout
-                            </button>
-                        </form>
-                    {% else %}
-                        <a href="{% url 'accounts:login' %}" class="btn-outline text-sm py-2 px-4">
-                            <i class="fas fa-sign-in-alt mr-1"></i>Login
-                        </a>
-                    {% endif %}
+                    <!-- Login removed - now public site -->
                 </div>
 
                 <!-- Mobile Menu Button -->
@@ -260,28 +249,24 @@
                 </button>
             </div>
 
-            <!-- Mobile Menu - Admin Link REMOVED -->
+            <!-- Mobile Menu - Public Navigation (No Login) -->
             <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4">
                 <div class="flex flex-col space-y-3">
-                    <a href="/" class="nav-link block" onclick="closeMobileMenu()">Home</a>
+                    <a href="{% url 'home' %}#home" class="nav-link block" onclick="closeMobileMenu()">Home</a>
+                    <a href="{% url 'home' %}#skills" class="nav-link block" onclick="closeMobileMenu()">Skills</a>
+                    <a href="{% url 'home' %}#projects" class="nav-link block" onclick="closeMobileMenu()">Projects</a>
+                    <a href="{% url 'home' %}#certificates" class="nav-link block" onclick="closeMobileMenu()">Certificates</a>
+                    <a href="{% url 'home' %}#education" class="nav-link block" onclick="closeMobileMenu()">Education</a>
+                    <a href="{% url 'home' %}#activities" class="nav-link block" onclick="closeMobileMenu()">Activities</a>
                     <a href="{% url 'contact:contact' %}" class="nav-link block" onclick="closeMobileMenu()">Contact</a>
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'accounts:dashboard' %}" class="nav-link block" onclick="closeMobileMenu()">Dashboard</a>
-                        <!-- ADMIN LINK REMOVED from mobile menu -->
-                        
-                        <form method="post" action="{% url 'accounts:logout' %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn-outline w-full">Logout</button>
-                        </form>
-                    {% else %}
-                        <a href="{% url 'accounts:login' %}" class="btn-outline block text-center">Login</a>
-                    {% endif %}
+                    
+                    <!-- Login removed - now public site -->
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Messages/Toasts -->
+    <!-- Messages/Toasts (Optional - can be removed for public site) -->
     {% if messages %}
         {% for message in messages %}
             <div class="toast {% if message.tags %}{{ message.tags }}{% endif %}">
@@ -313,11 +298,15 @@
                 <div>
                     <h4 class="font-semibold mb-4">Quick Links</h4>
                     <ul class="space-y-2">
-                        <li><a href="/" class="text-gray-300 hover:text-white">Home</a></li>
-                        <li><a href="/#projects" class="text-gray-300 hover:text-white">Projects</a></li>
-                        <li><a href="/#certificates" class="text-gray-300 hover:text-white">Certificates</a></li>
-                        <li><a href="/#extracurricular" class="text-gray-300 hover:text-white">Activities</a></li>
+                        <li><a href="{% url 'home' %}" class="text-gray-300 hover:text-white">Home</a></li>
+                        <li><a href="{% url 'home' %}#projects" class="text-gray-300 hover:text-white">Projects</a></li>
+                        <li><a href="{% url 'home' %}#certificates" class="text-gray-300 hover:text-white">Certificates</a></li>
+                        <li><a href="{% url 'home' %}#activities" class="text-gray-300 hover:text-white">Activities</a></li>
+                        <li><a href="{% url 'home' %}#education" class="text-gray-300 hover:text-white">Education</a></li>
                         <li><a href="{% url 'contact:contact' %}" class="text-gray-300 hover:text-white">Contact</a></li>
+                        <a href="{% url 'dashboard' %}" class="nav-link font-medium">
+        <i class="fas fa-tachometer-alt mr-1"></i>Dashboard
+    </a>
                     </ul>
                 </div>
                 <div>
@@ -356,7 +345,6 @@
             const menu = document.getElementById('mobileMenu');
             menu.classList.toggle('hidden');
             
-            // Animate hamburger icon
             const icon = document.querySelector('.md\\:hidden i');
             if (icon) {
                 if (icon.classList.contains('fa-bars')) {
@@ -374,7 +362,6 @@
             const menu = document.getElementById('mobileMenu');
             menu.classList.add('hidden');
             
-            // Reset hamburger icon
             const icon = document.querySelector('.md\\:hidden i');
             if (icon) {
                 icon.classList.remove('fa-times');
@@ -382,7 +369,7 @@
             }
         }
 
-        // Auto-hide toasts after 5 seconds
+        // Auto-hide toasts (optional)
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 document.querySelectorAll('.toast').forEach(toast => {
@@ -392,36 +379,28 @@
             }, 5000);
         });
 
-        // Smooth scrolling for anchor links (only for home page)
-        document.querySelectorAll('a[href^="/#"]').forEach(anchor => {
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 
-                const href = this.getAttribute('href');
-                const targetId = href.substring(2); // Remove '/#' from href
-                const targetElement = document.getElementById(targetId);
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
                 
                 if (targetElement) {
-                    // Close mobile menu if open
                     closeMobileMenu();
-                    
-                    // Smooth scroll to target
                     targetElement.scrollIntoView({ 
                         behavior: 'smooth',
                         block: 'start'
                     });
-                    
-                    // Update URL without page reload
-                    history.pushState(null, null, href);
+                    history.pushState(null, null, targetId);
                 }
             });
         });
 
-        // Handle direct links to home page with hash
-        if (window.location.pathname === '/' && window.location.hash) {
-            const targetId = window.location.hash.substring(1);
-            const targetElement = document.getElementById(targetId);
-            
+        // Handle direct links with hash
+        if (window.location.hash) {
+            const targetElement = document.querySelector(window.location.hash);
             if (targetElement) {
                 setTimeout(() => {
                     targetElement.scrollIntoView({ 
@@ -432,7 +411,7 @@
             }
         }
 
-        // Scroll to top function
+        // Scroll to top
         function scrollToTop() {
             window.scrollTo({
                 top: 0,
@@ -440,7 +419,7 @@
             });
         }
 
-        // Show/hide scroll to top button
+        // Show/hide scroll button
         window.addEventListener('scroll', function() {
             const scrollBtn = document.getElementById('scrollTopBtn');
             if (window.scrollY > 500) {

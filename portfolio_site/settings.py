@@ -62,12 +62,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'portfolio_site.wsgi.application'
 
 # Database - SQLite for development
-DATABASES = {
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}
+}'''
 
 DATABASES = {
     'default': {
