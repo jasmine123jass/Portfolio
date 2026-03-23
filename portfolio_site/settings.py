@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY", "'django-insecure--ub^m6!9&v1jkf59*+cqt($gpooafgm9u0&cxiu=e7npzy!uyz'")
 DEBUG = os.getenv("DEBUG", "True") == "True"
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.onrender.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.onrender.com','.railway.app']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
